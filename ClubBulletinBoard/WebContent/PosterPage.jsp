@@ -297,6 +297,174 @@
       </span>
     </div>
   </div>
+   <div class="card">
+    <div class="image">
+      <img src="./image/sample_image.png">
+    </div>
+    <div class="content">
+      <div class="header">하눌신폭</div>
+      <div class="meta">
+        <a>Coding</a>
+      </div>
+      <div class="description">
+       	동아리 설명 ....
+      </div>
+    </div>
+    <div class="extra content">
+        <span class="right floated">
+      <i class="heart outline like icon"></i>
+      17 likes
+    </span>
+      <span>
+        <i class="user icon"></i>
+        	50 people join
+      </span>
+    </div>
+  </div>
+   <div class="card">
+    <div class="image">
+      <img src="./image/sample_image.png">
+    </div>
+    <div class="content">
+      <div class="header">하눌신폭</div>
+      <div class="meta">
+        <a>Coding</a>
+      </div>
+      <div class="description">
+       	동아리 설명 ....
+      </div>
+    </div>
+    <div class="extra content">
+        <span class="right floated">
+      <i class="heart outline like icon"></i>
+      17 likes
+    </span>
+      <span>
+        <i class="user icon"></i>
+        	50 people join
+      </span>
+    </div>
+  </div>
+   <div class="card">
+    <div class="image">
+      <img src="./image/sample_image.png">
+    </div>
+    <div class="content">
+      <div class="header">하눌신폭</div>
+      <div class="meta">
+        <a>Coding</a>
+      </div>
+      <div class="description">
+       	동아리 설명 ....
+      </div>
+    </div>
+    <div class="extra content">
+        <span class="right floated">
+      <i class="heart outline like icon"></i>
+      17 likes
+    </span>
+      <span>
+        <i class="user icon"></i>
+        	50 people join
+      </span>
+    </div>
+  </div>
+   <div class="card">
+    <div class="image">
+      <img src="./image/sample_image.png">
+    </div>
+    <div class="content">
+      <div class="header">하눌신폭</div>
+      <div class="meta">
+        <a>Coding</a>
+      </div>
+      <div class="description">
+       	동아리 설명 ....
+      </div>
+    </div>
+    <div class="extra content">
+        <span class="right floated">
+      <i class="heart outline like icon"></i>
+      17 likes
+    </span>
+      <span>
+        <i class="user icon"></i>
+        	50 people join
+      </span>
+    </div>
+  </div>
+   <div class="card">
+    <div class="image">
+      <img src="./image/sample_image.png">
+    </div>
+    <div class="content">
+      <div class="header">하눌신폭</div>
+      <div class="meta">
+        <a>Coding</a>
+      </div>
+      <div class="description">
+       	동아리 설명 ....
+      </div>
+    </div>
+    <div class="extra content">
+        <span class="right floated">
+      <i class="heart outline like icon"></i>
+      17 likes
+    </span>
+      <span>
+        <i class="user icon"></i>
+        	50 people join
+      </span>
+    </div>
+  </div>
+   <div class="card">
+    <div class="image">
+      <img src="./image/sample_image.png">
+    </div>
+    <div class="content">
+      <div class="header">하눌신폭</div>
+      <div class="meta">
+        <a>Coding</a>
+      </div>
+      <div class="description">
+       	동아리 설명 ....
+      </div>
+    </div>
+    <div class="extra content">
+        <span class="right floated">
+      <i class="heart outline like icon"></i>
+      17 likes
+    </span>
+      <span>
+        <i class="user icon"></i>
+        	50 people join
+      </span>
+    </div>
+  </div>
+   <div class="card">
+    <div class="image">
+      <img src="./image/sample_image.png">
+    </div>
+    <div class="content">
+      <div class="header">하눌신폭</div>
+      <div class="meta">
+        <a>Coding</a>
+      </div>
+      <div class="description">
+       	동아리 설명 ....
+      </div>
+    </div>
+    <div class="extra content">
+        <span class="right floated">
+      <i class="heart outline like icon"></i>
+      17 likes
+    </span>
+      <span>
+        <i class="user icon"></i>
+        	50 people join
+      </span>
+    </div>
+  </div>
 </div>
 
 </body>
