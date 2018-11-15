@@ -1,10 +1,12 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ page import="java.io.PrintWriter" %>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
-  <title>Insert title here</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>Gachon Club Bulletin Board</title>
   <link rel="stylesheet" type="text/css" href="./semantic/semantic.min.css">
   <script
     src="https://code.jquery.com/jquery-3.1.1.min.js"
@@ -125,13 +127,128 @@
       ;
       
       $('.ui.dropdown').dropdown();
-
+      
+      $("#signUp")
+    	.click(function(){
+    		$('.ui.modal')
+    			.modal('show')
+    		;
+      })
+      ;
+      $("#signUpBtn")
+  	.click(function(){
+  		$('.ui.modal')
+  			.modal('show')
+  		;
+    })
+    ;
+    
+      $('#sign-up-form')
+      .form({
+        fields: {
+          name: {
+            identifier: 'name',
+            rules: [
+              {
+                type   : 'empty',
+                prompt : 'Please enter your name'
+              }
+            ]
+          },
+          email: {
+            identifier  : 'email',
+            rules: [
+              {
+                type   : 'empty',
+                prompt : 'Please enter your e-mail'
+              },
+              {
+                type   : 'email',
+                prompt : 'Please enter a valid e-mail'
+              }
+            ]
+          },
+          username: {
+            identifier: 'username',
+            rules: [
+              {
+                type   : 'empty',
+                prompt : 'Please enter a username'
+              }
+            ]
+          },
+          password: {
+            identifier: 'password',
+            rules: [
+              {
+                type   : 'empty',
+                prompt : 'Please enter a password'
+              },
+              {
+                type   : 'minLength[6]',
+                prompt : 'Your password must be at least {ruleValue} characters'
+              }
+            ]
+          }         
+        }
+      })
+    ; 
     })
   ;
   </script>
 
 </head>
 <body>
+
+	<%
+
+		String sessionID = null;
+		if (session.getAttribute("sessionID") != null) {
+			sessionID = (String) session.getAttribute("sessionID");		
+		}
+	%>	
+
+	<%
+		if (sessionID == null) {
+			
+	%>
+	<!-- Following Menu -->
+	<div class="ui large top fixed hidden menu">
+	  <div class="ui container">
+	    <a href="" class="active item">Home</a>
+	    <a href="#Work" class="item">Work</a>
+	    <a href="#Company" class="item">Company</a>
+		<div class="ui pointing dropdown link item">
+			<span class="text">Clubs</span>
+			<i class="dropdown icon"></i>
+			<div class="menu">
+				<div class="header">Categories</div>
+				<a href="" class="item">sports</a>
+				<a class="item">art</a>
+				<a class="item">study</a>
+				<a class="item">contest</a>
+				<div class="divider"></div>
+				<div class="header">Register</div>
+				<a class="item">new</a>
+				<a class="item">edit</a>
+			</div>
+		</div>
+		
+	    <div class="right menu">
+	      <div class="item">
+	        <a href="./LoginPage.jsp" class="ui button">Log in</a>
+	      </div>
+	      <div class="item">
+	        <button id="signUp" class="ui primary button">Sign Up</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+	
+	<%
+		} else {	
+	%>
+	
 	<!-- Following Menu -->
 	<div class="ui large top fixed hidden menu">
 	  <div class="ui container">
@@ -155,29 +272,24 @@
 		</div>
 	    <div class="right menu">
 	      <div class="item">
-	        <a class="ui button">Log in</a>
-	      </div>
-	      <div class="item">
-	        <a class="ui primary button">Sign Up</a>
+	      	<form method="post" action="./LogOut.jsp">
+	        	<input type="submit" class="ui fluid large teal submit button" value="Log out"></input>
+	        </form>
 	      </div>
 	    </div>
 	  </div>
 	</div>
 	
-	<!-- Sidebar Menu -->
-	<div class="ui vertical inverted sidebar menu">
-	  <a class="active item">Home</a>
-	  <a class="item">Work</a>
-	  <a class="item">Company</a>
-	  <a class="item">Login</a>
-	  <a class="item">Sign Up</a>
-	</div>
-	
+	<% } %>
 	
 	<!-- Page Contents -->
 	<div class="pusher">
 	  <div class="ui inverted vertical masthead center aligned segment">
 	
+		<%
+			if (sessionID == null) {
+		%>
+			
 	    <div class="ui container">
 	      <div class="ui large secondary inverted pointing menu">
 	        <a class="toc item">
@@ -202,18 +314,55 @@
 				</div>
 			</div>
 	        <div class="right item">
-	          <a class="ui inverted button">Log in</a>
-	          <a class="ui inverted button">Sign Up</a>
+	          <a href="./LoginPage.jsp" class="ui inverted button">Log in</a>
+	          <button id="signUpBtn" class="ui inverted button">Sign Up</button>
 	        </div>
 	      </div>
 	    </div>
+	    
+	    <%
+	    	} else {
+	    %>
+	    
+	    <div class="ui container">
+	      <div class="ui large secondary inverted pointing menu">
+	        <a class="toc item">
+	          <i class="sidebar icon"></i>
+	        </a>
+	        <a href="" class="active item">Home</a>
+	        <a href="#Work" class="item">Work</a>
+	        <a href="#Company" class="item">Company</a>
+	        <div class="ui pointing dropdown link item">
+				<span class="text">Clubs</span>
+				<i class="dropdown icon"></i>
+				<div class="menu">
+					<div class="header">Categories</div>
+					<a class="item">sports</a>
+					<a class="item">art</a>
+					<a class="item">study</a>
+					<a class="item">contest</a>
+					<div class="divider"></div>
+					<div class="header">Register</div>
+					<a class="item">new</a>
+					<a class="item">edit</a>
+				</div>
+			</div>
+	        <div class="right item">
+	          <form method="post" action="./LogOut.jsp">
+	        	<input type="submit" class="ui inverted button" value="Log out"></input>
+	        </form>
+	        </div>
+	      </div>
+	    </div>
+	    
+	    <% } %>
 	
 	    <div class="ui text container">
 	      <h1 class="ui inverted header">
 	        Gachon<br>Club Bulletin Board
 	      </h1>
 	      <h2>Find Your Clubs You Want</h2>
-	      <div class="ui huge primary button">¹Ù·Î ½ÃÀÛÇÏ¼¼¿ä <i class="right arrow icon"></i></div>
+	      <div class="ui huge primary button">ë°”ë¡œ ì‹œìž‘í•˜ì„¸ìš” <i class="right arrow icon"></i></div>
 	    </div>
 	
 	  </div>
@@ -222,10 +371,10 @@
 	    <div class="ui middle aligned stackable grid container">
 	      <div class="row">
 	        <div class="eight wide column">
-	          <h3 class="ui header">°¡Ãµ´ë µ¿¾Æ¸®¿Í ÇÐ»ýµéÀÇ ¸¸³²</h3>
-	          <p>°¡ÃµÀÇ µ¿¾Æ¸®µéÀÌ Áö±Ý ¿©±â¼­ ´ç½ÅÀ» ±â´Ù¸®°í ÀÖ½À´Ï´Ù.<br>¶ÇÇÑ, °¡ÃµÀÇ ÇÐ»ýµé ¿ª½Ã µ¿¾Æ¸® °¡ÀÔÀ» ¿øÇÏ°í ÀÖ½À´Ï´Ù.<br>¹Ù·Î Áö±Ý ¿©±â¼­ ´ç½ÅÀÇ ¿øÇÏ´Â ¹Ù¸¦ ÀÌ·ç¼¼¿ä.</p>
-	          <h3 class="ui header">¼ö¸¹Àº µ¿¾Æ¸®¸¦ ÇÑ´«¿¡</h3>
-	          <p>¸ðÁý±â°£ÀÌ ¸¸·áµÈ µ¿¾Æ¸® Æ÷½ºÅÍ, µ¿¾Æ¸® ÀÌ¿Ü¿¡ Àâ´ÙÇÑ Á¤º¸µéÀÌ ÁñºñÇÑ ÇÐ±³ °Ô½ÃÆÇ¿¡¼­ ¹þ¾î³ª º¸¼¼¿ä.<br>ÀúÈñ Gachon Club Bulletin Board¿¡¼­´Â ÃÖ½ÅÀÇ µ¿¾Æ¸® Á¤º¸¸¸À» ÇÑ´«¿¡ ¾Ë¾Æº¼ ¼ö ÀÖ½À´Ï´Ù.</p>
+	          <h3 class="ui header">ê°€ì²œëŒ€ ë™ì•„ë¦¬ì™€ í•™ìƒë“¤ì˜ ë§Œë‚¨</h3>
+	          <p>ê°€ì²œì˜ ë™ì•„ë¦¬ë“¤ì´ ì§€ê¸ˆ ì—¬ê¸°ì„œ ë‹¹ì‹ ì„ ê¸°ë‹¤ë¦¬ê³  ìžˆìŠµë‹ˆë‹¤.<br>ë˜í•œ, ê°€ì²œì˜ í•™ìƒë“¤ ì—­ì‹œ ë™ì•„ë¦¬ ê°€ìž…ì„ ì›í•˜ê³  ìžˆìŠµë‹ˆë‹¤.<br>ë°”ë¡œ ì§€ê¸ˆ ì—¬ê¸°ì„œ ë‹¹ì‹ ì˜ ì›í•˜ëŠ” ë°”ë¥¼ ì´ë£¨ì„¸ìš”.</p>
+	          <h3 class="ui header">ìˆ˜ë§Žì€ ë™ì•„ë¦¬ë¥¼ í•œëˆˆì—</h3>
+	          <p>ëª¨ì§‘ê¸°ê°„ì´ ë§Œë£Œëœ ë™ì•„ë¦¬ í¬ìŠ¤í„°, ë™ì•„ë¦¬ ì´ì™¸ì— ìž¡ë‹¤í•œ ì •ë³´ë“¤ì´ ì¦ë¹„í•œ í•™êµ ê²Œì‹œíŒì—ì„œ ë²—ì–´ë‚˜ ë³´ì„¸ìš”.<br>ì €í¬ Gachon Club Bulletin Boardì—ì„œëŠ” ìµœì‹ ì˜ ë™ì•„ë¦¬ ì •ë³´ë§Œì„ í•œëˆˆì— ì•Œì•„ë³¼ ìˆ˜ ìžˆìŠµë‹ˆë‹¤.</p>
 	        </div>
 	        <div class="six wide right floated column">
 	          <img src="./image/sample_image.png" class="ui large bordered rounded image">
@@ -245,12 +394,12 @@
 	      <div class="center aligned row">
 	        <div class="column">
 	          <h3>"E.A.S.Y"</h3>
-	          <p>ÀúÈñ °Ô½ÃÆÇÀ» ÅëÇØ µ¿¾Æ¸®¿Í »ç¶÷À» Ã£´ø ÀÌµéÀÌ ¸»ÇÏ´õ±º¿ä</p>
+	          <p>ì €í¬ ê²Œì‹œíŒì„ í†µí•´ ë™ì•„ë¦¬ì™€ ì‚¬ëžŒì„ ì°¾ë˜ ì´ë“¤ì´ ë§í•˜ë”êµ°ìš”</p>
 	        </div>
 	        <div class="column">
-	          <h3>"¿Í, Á¤¸» °£ÆíÇÏÀÝ¾Æ! ÀÌ ÇÐ±³ ÇÐ»ýµéÀº Á¤¸» ºÎ·´±º"</h3>
+	          <h3>"ì™€, ì •ë§ ê°„íŽ¸í•˜ìž–ì•„! ì´ í•™êµ í•™ìƒë“¤ì€ ì •ë§ ë¶€ëŸ½êµ°"</h3>
 	          <p>
-	            <img src="./image/sample_image.png" class="ui avatar image"> <b>±è¾Æ¹«°³</b> Áö³ª°¡´ø ³«¼º´ë»ý
+	            <img src="./image/sample_image.png" class="ui avatar image"> <b>ê¹€ì•„ë¬´ê°œ</b> ì§€ë‚˜ê°€ë˜ ë‚™ì„±ëŒ€ìƒ
 	          </p>
 	        </div>
 	      </div>
@@ -308,5 +457,35 @@
 	    </div>
 	  </div>
 	</div>
+	
+	<!-- sign up modal -->
+	<div class="ui modal">
+		<form id="sign-up-form" class="ui form segment" action="./SignUp.jsp">
+		  <p>Tell Us About Yourself</p>
+		  <div class="two fields">
+		    <div class="field">
+		      <label>Name</label>
+		      <input placeholder="First Name" name="name" type="text">
+		    </div>
+		    <div class="field">
+		      <label>E-mail</label>
+		      <input placeholder="E-mail address" name="email" type="text">
+		    </div>
+		  </div>
+		  <div class="two fields">
+		    <div class="field">
+		      <label>Username</label>
+		      <input placeholder="Username" name="userName" type="text">
+		    </div>
+		    <div class="field">
+		      <label>Password</label>
+		      <input type="password" name="password">
+		    </div>
+		  </div>
+		  <div class="ui primary submit button">Submit</div>
+		  <div class="ui error message"></div>
+		</form>
+	</div>
+	
 </body>
 </html>
