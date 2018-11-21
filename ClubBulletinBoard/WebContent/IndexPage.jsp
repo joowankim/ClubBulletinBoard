@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="java.io.PrintWriter" %>
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -120,11 +119,6 @@
           }
         })
       ;
-
-      // create sidebar and attach to menu open
-      $('.ui.sidebar')
-        .sidebar('attach events', '.toc.item')
-      ;
       
       $('.ui.dropdown').dropdown();
       
@@ -136,12 +130,12 @@
       })
       ;
       $("#signUpBtn")
-  	.click(function(){
-  		$('.ui.modal')
-  			.modal('show')
-  		;
-    })
-    ;
+  	  .click(function(){
+  		  $('.ui.modal')
+  		  	.modal('show')
+  		  ;
+      })
+      ;
     
       $('#sign-up-form')
       .form({
@@ -203,12 +197,10 @@
 	<%
 
 		String sessionID = null;
-		if (session.getAttribute("sessionID") != null) {
-			sessionID = (String) session.getAttribute("sessionID");		
+		if (session.getAttribute("sessionID") != null) {	
+			sessionID = (String) session.getAttribute("sessionID");
 		}
-	%>	
 
-	<%
 		if (sessionID == null) {
 			
 	%>
@@ -229,7 +221,7 @@
 				<a class="item">contest</a>
 				<div class="divider"></div>
 				<div class="header">Register</div>
-				<a class="item">new</a>
+				<a class="item" href="./Register.jsp">new</a>
 				<a class="item">edit</a>
 			</div>
 		</div>
@@ -266,7 +258,7 @@
 				<a class="item">contest</a>
 				<div class="divider"></div>
 				<div class="header">Register</div>
-				<a class="item">new</a>
+				<a class="item" href="./Register.jsp">new</a>
 				<a class="item">edit</a>
 			</div>
 		</div>
@@ -309,7 +301,7 @@
 					<a class="item">contest</a>
 					<div class="divider"></div>
 					<div class="header">Register</div>
-					<a class="item">new</a>
+					<a class="item" href="./Register.jsp">new</a>
 					<a class="item">edit</a>
 				</div>
 			</div>
@@ -343,7 +335,7 @@
 					<a class="item">contest</a>
 					<div class="divider"></div>
 					<div class="header">Register</div>
-					<a class="item">new</a>
+					<a class="item" href="./Register.jsp">new</a>
 					<a class="item">edit</a>
 				</div>
 			</div>

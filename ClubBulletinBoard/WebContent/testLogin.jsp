@@ -18,7 +18,8 @@
 
 	<%
 	
-		String sessionID = null;
+		String sessionID = null;		
+
 		if (session.getAttribute("sessionID") != null) {
 			sessionID = (String) session.getAttribute("sessionID");
 		}
@@ -31,9 +32,9 @@
 		}
 	
 		UserDAO userDAO = new UserDAO();
-		int result = userDAO.login(user.getEmail(), user.getPassword());
+		int result = userDAO.login(user);
 		if (result == UserDAO.LOGIN_SUCCESS) {
-			session.setAttribute("sessionID", user.getEmail());
+			session.setAttribute("sessionID", String.valueOf(user.getUserID()));
 			PrintWriter script = response.getWriter();
 			script.println("<script>");
 			script.println("location.href = 'IndexPage.jsp'");

@@ -1,5 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
+<%@ page import="poster.PosterDAO" %>
+<%@ page import="poster.Poster" %>
+<%@ page import="user.UserDAO" %>
+<%@ page import="user.User" %>
+<%@ page import="likey.LikeyDAO" %>
+<%@ page import="likey.Likey" %>
+<%@ page import="java.io.PrintWriter" %>
+<%@ page import="java.util.ArrayList" %>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -10,7 +19,7 @@
     src="https://code.jquery.com/jquery-3.1.1.min.js"
     integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
   crossorigin="anonymous"></script>
-  <script src="./semantic/semantic.min.js">
+  <script src="./semantic/semantic.min.js"></script>
 
   </script>
 
@@ -109,363 +118,190 @@
   $(document)
     .ready(function() {
 
-      // fix menu when passed
-      $('.masthead')
-        .visibility({
-          once: false,
-          onBottomPassed: function() {
-            $('.fixed.menu').transition('fade in');
-          },
-          onBottomPassedReverse: function() {
-            $('.fixed.menu').transition('fade out');
-          }
-        })
-      ;
-
-      // create sidebar and attach to menu open
-      $('.ui.sidebar')
-        .sidebar('attach events', '.toc.item')
-      ;
-      
-      $('.ui.dropdown').dropdown();
-
+    $('.ui.dropdown')
+    	.dropdown()
+    	;
+    
+    $("a[target='likeSpan']").on("click",function(){
+    	var ids = $(this).attr("id");
+    	$.ajax({
+    		url:"./likeController?ids="+ids,
+    		type:"GET",
+    		dataType:"json",
+    		error:function(request, status, error){
+    			alert("로그인 후에 이용해주세요");
+    		},
+    		success:function(data) {
+    				
+    			if ($("i[target='like']").attr("class") == "heart outline icon"){
+    				$("i[target='like']").attr("class", "heart icon");
+				} else {
+					$("i[target='like']").attr("class", "heart outline icon");
+				}
+    			
+    			$("span.like").text(data["likeCount"] + " likes");
+    		}
+    	});
     })
-  ;
-  
-  $('.ui.search')
-  .search({
-    source: content
+    ;
+    
   })
-;
+  ;
   </script>
 
 </head>
 <body>
 
-	<!-- Following Menu -->
-	<div class="ui large top fixed hidden menu">
-	  <div class="ui container">
-	    <a href="" class="active item">Home</a>
-	    <a href="#Work" class="item">Work</a>
-	    <a href="#Company" class="item">Company</a>
-		<div class="ui pointing dropdown link item">
-			<span class="text">Clubs</span>
-			<i class="dropdown icon"></i>
-			<div class="menu">
-				<div class="header">Categories</div>
-				<a href="" class="item">sports</a>
-				<a class="item">art</a>
-				<a class="item">study</a>
-				<a class="item">contest</a>
-				<div class="divider"></div>
-				<div class="header">Register</div>
-				<a class="item">new</a>
-				<a class="item">edit</a>
-			</div>
-		</div>
-	    <div class="right menu">
-	   <div class="ui search">
- 	 <div class="ui icon input">
-   	 <input class="prompt" type="text" placeholder="Search Clubs..." value="">
-    	<i class="search icon"></i>
-  	</div>
- 	 <div class="results"></div>
-	</div>
-	    </div>
-	  </div>
-	</div>
-	
-	<!-- Sidebar Menu -->
-	<div class="ui vertical inverted sidebar menu">
-	  <a class="active item">Home</a>
-	  <a class="item">Work</a>
-	  <a class="item">Company</a>
-	  <a class="item">Search</a>
-	</div>
-	
-	
 	<!-- Page Contents -->
 	<div class="pusher">
-	  <div class="ui inverted vertical masthead center aligned segment">
-	
+	  <%
+		  String sessionID = null;
+		  if (session.getAttribute("sessionID") != null) {
+			  sessionID = (String) session.getAttribute("sessionID");		
+		  }
+		  int pageNumber = 1;	// 기본 페이지를 의미
+		  if (request.getParameter("pageNumber") != null) {
+			  pageNumber = Integer.parseInt(request.getParameter("pageNumber"));
+		  }
+	  %>	
+	  <!-- Code for top menu bar -->
+	  <%
+		  if (sessionID == null) {			
+	  %>
+	  <div class="ui large top menu">
 	    <div class="ui container">
-	      <div class="ui large secondary inverted pointing menu">
-	        <a class="toc item">
-	          <i class="sidebar icon"></i>
-	        </a>
-	        <a href="" class="active item">Home</a>
-
-	        <div class="ui pointing dropdown link item">
-				<span class="text">Clubs</span>
-				<i class="dropdown icon"></i>
-				<div class="menu">
-					<div class="header">Categories</div>
-					<a class="item">sports</a>
-					<a class="item">art</a>
-					<a class="item">study</a>
-					<a class="item">contest</a>
-					<div class="divider"></div>
-					<div class="header">Register</div>
-					<a class="item">new</a>
-					<a class="item">edit</a>
-				</div>
-			</div>
-	        <div class="right item">
-	        <div class="ui search">
-  <div class="ui icon input">
-    <input class="prompt" type="text" placeholder="Search Clubs..." value="">
-    <i class="search icon"></i>
-  </div>
-  <div class="results"></div>
-</div>
+	      <a href="" class="item">Home</a>
+	      <a href="#Work" class="item">Work</a>
+	      <a href="#Company" class="item">Company</a>
+		  <div class="ui pointing dropdown link item">
+			  <span class="text">Clubs</span>
+			  <i class="dropdown icon"></i>
+			  <div class="menu">
+				  <div class="header">Categories</div>
+				  <a href="" class="item">sports</a>
+				  <a class="item">art</a>
+				  <a class="item">study</a>
+				  <a class="item">contest</a>
+				  <div class="divider"></div>
+				  <div class="header">Register</div>
+				  <a class="item" href="./Register.jsp">new</a>
+			  	  <a class="item">edit</a>
+			  </div>
+		  </div>
+		
+	      <div class="right menu">
+	        <div class="item">
+	          <a href="./LoginPage.jsp" class="ui button">Log in</a>
+	        </div>
+	        <div class="item">
+	          <button id="signUp" class="ui primary button">Sign Up</button>
 	        </div>
 	      </div>
 	    </div>
-	    
-	    <br><br><br>
+	  </div>
+	
+	  <%
+	    	} else {	
+	  %>
+	
+	  <div class="ui large top menu">
+	    <div class="ui container">
+	      <a href="" class="item">Home</a>
+	      <a href="#Work" class="item">Work</a>
+	      <a href="#Company" class="item">Company</a>
+		  <div class="ui pointing dropdown link item">
+			  <span class="text">Clubs</span>
+			  <i class="dropdown icon"></i>
+			  <div class="menu">
+				  <div class="header">Categories</div>
+				  <a href="" class="item">sports</a>
+				  <a class="item">art</a>
+				  <a class="item">study</a>
+				  <a class="item">contest</a>
+				  <div class="divider"></div>
+				  <div class="header">Register</div>
+				  <a class="item" href="./Register.jsp">new</a>
+				  <a class="item">edit</a>
+			  </div>
+		  </div>
+  	      <div class="right menu">
+	        <div class="item">
+	      	  <form method="post" action="./LogOut.jsp">
+	        	  <input type="submit" class="ui fluid large teal submit button" value="Log out"></input>
+	          </form>
+	        </div>
+	      </div>
+	    </div>
+	  </div>
+	
+      <% } %>		
+	  <div class="ui container">
 	  
-	  <div class="ui link cards">
-  <div class="card">
-    <div class="image">
-      <img src="./image/sample_image.png">
-    </div>
-    <div class="content">
-      <div class="header">하눌신폭</div>
-      <div class="meta">
-        <a>Coding</a>
-      </div>
-      <div class="description">
-       	동아리 설명 ....
-      </div>
-    </div>
-    <div class="extra content">
-        <span class="right floated">
-      <i class="heart outline like icon"></i>
-      17 likes
-    </span>
-      <span>
-        <i class="user icon"></i>
-        	50 people join
-      </span>
-    </div>
-  </div>
-  <div class="card">
-    <div class="image">
-      <img src="./image/sample_image.png">
-    </div>
-    <div class="content">
-      <div class="header">힐링멘토링</div>
-      <div class="meta">
-        <span class="date">Mentor</span>
-      </div>
-      <div class="description">
-    	동아리 설명...
-      </div>
-    </div>
-    <div class="extra content">
-        <span class="right floated">
-      <i class="heart outline like icon"></i>
-      17 likes
-    </span>
-      <span>
-        <i class="user icon"></i>
-        49 people join
-      </span>
-    </div>
-  </div>
-  <div class="card">
-    <div class="image">
-      <img src="./image/sample_image.png">
-    </div>
-    <div class="content">
-      <div class="header">Soccer Club</div>
-      <div class="meta">
-        <a>Soccer</a>
-      </div>
-      <div class="description">
-     	동아리 설명...
-      </div>
-    </div>
-    <div class="extra content">
-       <span class="right floated">
-      <i class="heart outline like icon"></i>
-      17 likes
-    </span>
-      <span>
-        <i class="user icon"></i>
-        151 people join
-      </span>
-    </div>
-  </div>
-   <div class="card">
-    <div class="image">
-      <img src="./image/sample_image.png">
-    </div>
-    <div class="content">
-      <div class="header">하눌신폭</div>
-      <div class="meta">
-        <a>Coding</a>
-      </div>
-      <div class="description">
-       	동아리 설명 ....
-      </div>
-    </div>
-    <div class="extra content">
-        <span class="right floated">
-      <i class="heart outline like icon"></i>
-      17 likes
-    </span>
-      <span>
-        <i class="user icon"></i>
-        	50 people join
-      </span>
-    </div>
-  </div>
-   <div class="card">
-    <div class="image">
-      <img src="./image/sample_image.png">
-    </div>
-    <div class="content">
-      <div class="header">하눌신폭</div>
-      <div class="meta">
-        <a>Coding</a>
-      </div>
-      <div class="description">
-       	동아리 설명 ....
-      </div>
-    </div>
-    <div class="extra content">
-        <span class="right floated">
-      <i class="heart outline like icon"></i>
-      17 likes
-    </span>
-      <span>
-        <i class="user icon"></i>
-        	50 people join
-      </span>
-    </div>
-  </div>
-   <div class="card">
-    <div class="image">
-      <img src="./image/sample_image.png">
-    </div>
-    <div class="content">
-      <div class="header">하눌신폭</div>
-      <div class="meta">
-        <a>Coding</a>
-      </div>
-      <div class="description">
-       	동아리 설명 ....
-      </div>
-    </div>
-    <div class="extra content">
-        <span class="right floated">
-      <i class="heart outline like icon"></i>
-      17 likes
-    </span>
-      <span>
-        <i class="user icon"></i>
-        	50 people join
-      </span>
-    </div>
-  </div>
-   <div class="card">
-    <div class="image">
-      <img src="./image/sample_image.png">
-    </div>
-    <div class="content">
-      <div class="header">하눌신폭</div>
-      <div class="meta">
-        <a>Coding</a>
-      </div>
-      <div class="description">
-       	동아리 설명 ....
-      </div>
-    </div>
-    <div class="extra content">
-        <span class="right floated">
-      <i class="heart outline like icon"></i>
-      17 likes
-    </span>
-      <span>
-        <i class="user icon"></i>
-        	50 people join
-      </span>
-    </div>
-  </div>
-   <div class="card">
-    <div class="image">
-      <img src="./image/sample_image.png">
-    </div>
-    <div class="content">
-      <div class="header">하눌신폭</div>
-      <div class="meta">
-        <a>Coding</a>
-      </div>
-      <div class="description">
-       	동아리 설명 ....
-      </div>
-    </div>
-    <div class="extra content">
-        <span class="right floated">
-      <i class="heart outline like icon"></i>
-      17 likes
-    </span>
-      <span>
-        <i class="user icon"></i>
-        	50 people join
-      </span>
-    </div>
-  </div>
-   <div class="card">
-    <div class="image">
-      <img src="./image/sample_image.png">
-    </div>
-    <div class="content">
-      <div class="header">하눌신폭</div>
-      <div class="meta">
-        <a>Coding</a>
-      </div>
-      <div class="description">
-       	동아리 설명 ....
-      </div>
-    </div>
-    <div class="extra content">
-        <span class="right floated">
-      <i class="heart outline like icon"></i>
-      17 likes
-    </span>
-      <span>
-        <i class="user icon"></i>
-        	50 people join
-      </span>
-    </div>
-  </div>
-   <div class="card">
-    <div class="image">
-      <img src="./image/sample_image.png">
-    </div>
-    <div class="content">
-      <div class="header">하눌신폭</div>
-      <div class="meta">
-        <a>Coding</a>
-      </div>
-      <div class="description">
-       	동아리 설명 ....
-      </div>
-    </div>
-    <div class="extra content">
-        <span class="right floated">
-      <i class="heart outline like icon"></i>
-      17 likes
-    </span>
-      <span>
-        <i class="user icon"></i>
-        	50 people join
-      </span>
-    </div>
-  </div>
-</div>
+	  	  <div class="ui fluid container">
+		  	  <h1 class="ui header">
+				<img class="ui image" src="./image/sample_image.png">
+				<div class="content">
+				  	Study
+				</div>
+			  </h1>
+	  	  </div>
+	  	  
+	  	  <div class="ui divider"></div>
+	  	  
+	  	  <div class="ui four column doubling stackable grid container">
+	  	  	
+	  	  	<%
+	  	  		PosterDAO posterDAO = new PosterDAO();
+	  	  		UserDAO userDAO = new UserDAO();
+	  	  		LikeyDAO likeyDAO = new LikeyDAO();
+	  	  		
+	  	  		ArrayList<Poster> list = posterDAO.getList(pageNumber);
+	  	  		for(int i=0; i<list.size(); i++) {
+	  	  	
+	  	  	%>
+	  	    <div class="column">	  	    	
 
+			  <div class="ui link card">
+				<a class="image" href="./DetailPage.jsp?posterID=<%=list.get(i).getPosterID() %>">
+		      	  <img src="./image/sample_image.png">
+				</a>
+				<div class="content">
+				  <a class="header" href="./DetailPage.jsp?posterID=<%=list.get(i).getPosterID() %>"><%=list.get(i).getClubName() %></a>
+				  <div class="meta">
+				    <a href="./DetailPage.jsp?posterID=<%=list.get(i).getPosterID() %>"><%=list.get(i).getActivityField() %></a>
+				  </div>		
+				</div>
+				<div class="extra content">
+				  <a id="<%=list.get(i).getPosterID() %>" class="right floated" target="likeSpan">		  
+				    <%	
+				    	if (sessionID != null) {
+				    		if (likeyDAO.checkLike(list.get(i).getPosterID(), Integer.parseInt(sessionID)) == 1) {
+				    %>			    
+						    <i class="heart icon" target="like"></i>
+						 <% } else { %>
+						    <i class="heart outline icon" target="like"></i>
+						 <% } 
+						} else { %>
+
+				    	<i class="heart outline icon"></i>
+				    <% } %>
+				    
+				       <span class="like"><%=list.get(i).getLikeCount() %> likes</span>
+				  </a>
+				  
+				  <span>
+				    <i class="comment outline icon"></i>
+				       <span class="comment"><%=list.get(i).getCommentCount() %> comments</span>
+				  </span>
+				</div>
+			  </div>		   
+			  
+			</div>
+			<% } %>
+			
+		  </div>
+	  </div>
+	</div>
 </body>
+
 </html>

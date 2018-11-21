@@ -2,11 +2,18 @@ package user;
 
 public class User {
 	
+	private int userID;
 	private String name;
 	private String email;
 	private String userName;
 	private String password;
 	
+	public int getUserID() {
+		return userID;
+	}
+	public void setUserID(int userID) {
+		this.userID = userID;
+	}
 	public String getName() {
 		return name;
 	}

@@ -28,14 +28,15 @@ public class UserDAO {
 		}
 	}
 	
-	public int login(String userEmail, String userPassword) {
+	public int login(User user) {
 		String SQL = "SELECT password FROM user WHERE email = ?";
 		try {
 			pstmt = conn.prepareStatement(SQL);
-			pstmt.setString(1, userEmail);
+			pstmt.setString(1, user.getEmail());
 			rs = pstmt.executeQuery();
 			if (rs.next()) {
-				if (rs.getString(1).equals(userPassword)) {
+				if (rs.getString(1).equals(user.getPassword())) {
+					setUser(user);
 					return LOGIN_SUCCESS;
 				} else {
 					return INCORRECT_PW;
@@ -61,5 +62,21 @@ public class UserDAO {
 			e.printStackTrace();
 		}
 		return DATABASE_ERROR;
+	}
+	
+	public void setUser(User user) {
+		String SQL = "SELECT * FROM user WHERE email = ?";
+		try {
+			pstmt = conn.prepareStatement(SQL);
+			pstmt.setString(1, user.getEmail());
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				user.setUserID(rs.getInt(1));
+				user.setName(rs.getString(2));
+				user.setUserName(rs.getString(4));
+			}
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
 	}
 }
