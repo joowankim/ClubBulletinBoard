@@ -3,6 +3,7 @@ package poster;
 public class Poster {
 	
 	private int posterID;
+	private int userID;
 	private int likeCount;
 	private int commentCount;
 	private String clubName;
@@ -13,13 +14,19 @@ public class Poster {
 	private String activityField;
 	private String intro;
 	private String posterImg;
-	
+	private String posterFileName;
 	
 	public int getPosterID() {
 		return posterID;
 	}
 	public void setPosterID(int posterID) {
 		this.posterID = posterID;
+	}
+	public int getUserID() {
+		return userID;
+	}
+	public void setUserID(int userID) {
+		this.userID = userID;
 	}
 	public int getLikeCount() {
 		return likeCount;
@@ -81,7 +88,12 @@ public class Poster {
 	public void setPosterImg(String posterImg) {
 		this.posterImg = posterImg;
 	}
-	
+	public String getPosterFileName() {
+		return posterFileName;
+	}
+	public void setPosterFileName(String posterFileName) {
+		this.posterFileName = posterFileName;
+	}
 	
 	
 	

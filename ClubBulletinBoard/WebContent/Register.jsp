@@ -21,6 +21,7 @@
 	  $('.ui.dropdown').dropdown();
   });
   </script>
+ 
 </head>
 <body>
 
@@ -109,7 +110,7 @@
 	
 	<div class="ui very padded segment">
 		
-		<form class="ui form" action="./registerAction.jsp" method="post" enctype="multipart/form-data">
+		<form class="ui form" action="./posterAction" method="post" enctype="multipart/form-data">
 	  		<div class="field">
 	    		<label>동아리명 </label>
 	    		<input type="text" name="clubName" placeholder="동아리 이름을 입력 해주세요 ">

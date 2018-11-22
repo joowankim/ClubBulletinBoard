@@ -79,4 +79,19 @@ public class UserDAO {
 			e.printStackTrace();
 		}
 	}
+	
+	public String getUserName(int userID) {
+		String SQL = "SELECT userName FROM user WHERE userID = ?";
+		try {
+			pstmt = conn.prepareStatement(SQL);
+			pstmt.setInt(1, userID);
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				return rs.getString(1);
+			}
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
 }

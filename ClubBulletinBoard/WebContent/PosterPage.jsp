@@ -133,7 +133,7 @@
     			alert("로그인 후에 이용해주세요");
     		},
     		success:function(data) {
-    			var str = ids;
+    			
     			if ($(this).children('i').attr("class") == "heart outline icon"){
     				$(this).children('i').attr("class", "heart icon");
 				} else {
@@ -264,12 +264,12 @@
 
 			  <div class="ui link card">
 				<a class="image" href="./DetailPage.jsp?posterID=<%=list.get(i).getPosterID() %>">
-		      	  <img src="<%=list.get(i).getPosterImg()%>">
+		      	  <img src="<%=request.getContextPath()%>/image/poster/<%=list.get(i).getPosterFileName()%>">
 				</a>
 				<div class="content">
-				  <a class="header" href="./DetailPage.jsp?posterID=<%=list.get(i).getPosterID() %>"><%=list.get(i).getClubName() %></a>
+				  <a class="header" href="./DetailPage.jsp?posterID=<%=list.get(i).getPosterID() %>"><%=list.get(i).getClubName().replaceAll(" ", "&nbsp;").replaceAll("<", "&lt;").replaceAll(">", "&gt").replaceAll("\n", "<br>") %></a>
 				  <div class="meta">
-				    <a href="./DetailPage.jsp?posterID=<%=list.get(i).getPosterID() %>"><%=list.get(i).getActivityField() %></a>
+				    <a href="./DetailPage.jsp?posterID=<%=list.get(i).getPosterID() %>"><%=list.get(i).getActivityField().replaceAll(" ", "&nbsp;").replaceAll("<", "&lt;").replaceAll(">", "&gt").replaceAll("\n", "<br>") %></a>
 				  </div>		
 				</div>
 				<div class="extra content">

@@ -1,5 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="java.io.PrintWriter" %>
+<%@ page import="poster.Poster" %>
+<%@ page import="poster.PosterDAO" %>
+<%@ page import="comment.Comment" %>
+<%@ page import="comment.CommentDAO" %>
+<%@ page import="user.User" %>
+<%@ page import="user.UserDAO" %>
+<%@ page import="java.util.ArrayList" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,6 +26,19 @@
   .ready(function() {
 	  $('.ui.dropdown').dropdown();
   });
+  
+  function registerComment(){
+	  var form = document.getElementById("commentForm");
+	  var pID = document.createElement('input');
+	  var posterID = <%=request.getParameter("posterID")%>
+	  pID.setAttribute("name", "posterID");
+	  pID.setAttribute("value", posterID);
+	  form.appendChild(pID);
+	  
+	  
+	  form.submit();
+	  
+  }
   </script>
  
 </head>
@@ -25,9 +46,23 @@
 	<%
 
 		String sessionID = null;
+
 		if (session.getAttribute("sessionID") != null) {
-			sessionID = (String) session.getAttribute("sessionID");		
+			sessionID = (String) session.getAttribute("sessionID");
 		}
+		int posterID = 0;
+		if (request.getParameter("posterID") != null) {
+			posterID = Integer.parseInt(request.getParameter("posterID"));
+		}
+		if (posterID == 0) {
+			PrintWriter script = response.getWriter();
+			script.println("<script>");
+			script.println("alert('유효하지 않은 포스터입니다')");
+			script.println("history.back()");
+			script.println("</script>");
+		}
+		Poster poster = new PosterDAO().getPoster(posterID);
+		
 	%>	
 	<!-- Code for top menu bar -->
 	<%
@@ -105,27 +140,86 @@
 	<br>
 	
 	<h1 class="ui blue block header">
-  		동아리명 
+  		<%=poster.getClubName().replaceAll(" ", "&nbsp;").replaceAll("<", "&lt;").replaceAll(">", "&gt").replaceAll("\n", "<br>") %> 
 	</h1>
 	
 		<div class="ui horizontal segments">
 			<div class="ui compact segments">
     			<div class="ui segment">
-     			 	<img class="ui large image" src="sample_image.png">
+     			 	<img class="ui large image" src="<%=request.getContextPath()%>/image/poster/<%=poster.getPosterFileName()%>">
     			</div>
     		</div>
     
     		<div class="ui segment">
-      			<h3>동아리명: 컴퓨터 동아리 </h3>
-      			<h3>분류: 학술 </h3>
-      			<h3>모집인원: 10명 </h3>
-      			<h3>우대 조건: 컴퓨터 관련 자격증 소지자 </h3>
+      			<h3>동아리명: <%=poster.getClubName().replaceAll(" ", "&nbsp;").replaceAll("<", "&lt;").replaceAll(">", "&gt").replaceAll("\n", "<br>") %> </h3>
+      			<h3>분류: <%=poster.getClubCategory().replaceAll(" ", "&nbsp;").replaceAll("<", "&lt;").replaceAll(">", "&gt").replaceAll("\n", "<br>") %> </h3>
+      			<h3>모집인원: <%=poster.getNumOfRecruiting() %>명 </h3>
+      			<h3>우대 조건: <%=poster.getPreferCondition().replaceAll(" ", "&nbsp;").replaceAll("<", "&lt;").replaceAll(">", "&gt").replaceAll("\n", "<br>") %> </h3>
    			 </div>
   		</div>
   		
   		<div class="ui very padded segment">
   			<h3>소개 </h3>
-  			<p>컴퓨터를 배우는 동아리 입니다.</p>
+  			<p><%=poster.getIntro().replaceAll(" ", "&nbsp;").replaceAll("<", "&lt;").replaceAll(">", "&gt").replaceAll("\n", "<br>") %></p>
+		</div>
+		
+		<a class="ui button" href="./PosterPage.jsp">목록</a>
+		<%
+			if(sessionID != null && sessionID.equals(String.valueOf(poster.getUserID()))){
+		%>
+				<a href="update.jsp?posterID=<%=posterID%>" class="ui button">수정</a>
+				<a onclick="return confirm('정말로 삭제하시겠습니까?')" href="deleteAction.jsp?posterID=<%=posterID%>" class="ui button">삭제</a>
+		<%
+			}
+		%>
+
+		<div class="ui small comments">
+  			<h3 class="ui dividing header">Comments</h3>
+  			
+  				<!-- text area -->
+				<form id="commentForm" class="ui reply form" action="./commentAction.jsp">
+			        <div class="field">
+			          <textarea name="contents"></textarea>
+			        </div>
+			        <div class="ui primary submit labeled icon button" onclick="registerComment();">
+			          <i class="icon edit"></i> Add Reply
+			        </div>
+		      	</form>
+		      
+		      	<%
+		      		CommentDAO commentDAO = new CommentDAO();
+		      		UserDAO userDAO = new UserDAO();
+		      		
+		      		ArrayList<Comment> list = commentDAO.getComments(posterID);
+		  	  		for(int i=0; i<list.size(); i++) {
+		      	%>
+		      	<!-- comment -->
+		      	<div class="ui comments">
+				  <div class="comment">
+				    <a class="avatar">
+				      <img src="/images/avatar/small/stevie.jpg">
+				    </a>
+				    <div class="content">
+				      <a class="author"><%=userDAO.getUserName(list.get(i).getUserID()).replaceAll(" ", "&nbsp;").replaceAll("<", "&lt;").replaceAll(">", "&gt").replaceAll("\n", "<br>") %></a>
+				      <div class="metadata">
+				        <div class="date"><%=list.get(i).getDate() %></div>
+				      </div>
+				      <div class="text">
+				        <%=list.get(i).getContents().replaceAll(" ", "&nbsp;").replaceAll("<", "&lt;").replaceAll(">", "&gt").replaceAll("\n", "<br>") %>
+				      </div>
+				      <%
+						  if(sessionID != null && sessionID.equals(String.valueOf(poster.getUserID()))){
+					  %>
+				      <div class="actions">
+				        <a class="delete" onclick="return confirm('정말로 삭제하시겠습니까?')" href="deleteComment.jsp?posterID=<%=posterID%>&commentID=<%=list.get(i).getCommentID()%>">delete</a>				   
+				      </div>
+				      <%
+						  }
+					  %>
+				    </div>
+				  </div>
+				</div>
+		      	<% } %>
 		</div>
  
 </body>

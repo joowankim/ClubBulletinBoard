@@ -72,8 +72,8 @@ public class PosterDAO {
 	}
 	
 	public int register(String userEmail, String clubName, String clubCategory, int numOfRecruiting,
-			String homepageLink, String preferCondition, String activityField, String intro, String posterImg) {
-		String SQL = "INSERT INTO poster VALUES (0, ?, ?, 0, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+			String homepageLink, String preferCondition, String activityField, String intro, String posterImg, String posterFileName) {
+		String SQL = "INSERT INTO poster VALUES (0, ?, ?, 0, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		try {
 			
 			PreparedStatement pstmt = conn.prepareStatement(SQL);
@@ -88,7 +88,8 @@ public class PosterDAO {
 			pstmt.setString(9, activityField);
 			pstmt.setString(10, intro);
 			pstmt.setString(11, posterImg);
-			pstmt.setInt(12, 1);
+			pstmt.setString(12, posterFileName);
+			pstmt.setInt(13, 1);
 			return pstmt.executeUpdate();
 			
 		} catch (Exception e) {
@@ -117,6 +118,7 @@ public class PosterDAO {
 				poster.setActivityField(rs.getString(11));
 				poster.setIntro(rs.getString(12));
 				poster.setPosterImg(rs.getString(13));
+				poster.setPosterFileName(rs.getString(14));
 				list.add(poster);
 			}
 			
@@ -143,40 +145,52 @@ public class PosterDAO {
 	
 	}
 	
-	
-	
-	public int updateComment(Poster pos, int userID, String content) {
-		String SQL = "UPDATE poster SET comment_cnt = ? WHERE posterID = ?";
-		try {
-			if (insertComment(pos, userID, content) != -1) {
-				int commentCount = countComment(pos);
-				if (commentCount != -1) {
-					PreparedStatement pstmt = conn.prepareStatement(SQL);
-					pstmt.setInt(1, commentCount);
-					pstmt.setInt(2, pos.getPosterID());
-					return pstmt.executeUpdate();
-				} else {
-					return -1;
-				}
-			} else {
-				return -1;
-			}		
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return -1;	// 데이터베이스 오류
-	}
-	
-	private int countComment(Poster pos) {
-		String SQL = "SELECT COUNT(*) FROM poster_comment WHERE poster_id_fk = ?";
+	public Poster getPoster(int posterID) {
+		String SQL = "SELECT * FROM poster WHERE posterID = ?";
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(SQL);
-			pstmt.setInt(1, pos.getPosterID());
+			pstmt.setInt(1, posterID);
 			rs = pstmt.executeQuery();
 			if (rs.next()) {
-				return rs.getInt(1);
+				Poster poster = new Poster();
+				poster.setPosterID(rs.getInt(1));
+				poster.setUserID(rs.getInt(2));
+				poster.setLikeCount(rs.getInt(3));
+				poster.setCommentCount(rs.getInt(4));
+				poster.setClubName(rs.getString(6));
+				poster.setClubCategory(rs.getString(7));
+				poster.setNumOfRecruiting(rs.getInt(8));
+				poster.setHomepageLink(rs.getString(9));
+				poster.setPreferCondition(rs.getString(10));
+				poster.setActivityField(rs.getString(11));
+				poster.setIntro(rs.getString(12));
+				poster.setPosterImg(rs.getString(13));
+				poster.setPosterFileName(rs.getString(14));
+				return poster;
 			}
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	public int update(int posterID, String clubName, String clubCategory, int numOfRecruiting,
+			String homepageLink, String preferCondition, String activityField, String intro, String posterImg, String posterFileName) {
+		String SQL = "UPDATE poster SET clubName = ?, clubCategory = ?, numOfRecruiting = ?, homepageLink = ?, preferCondition = ?, activityField = ?, intro = ?, posterPath = ?, posterFileName = ? WHERE posterID = ?";
+		try {
+			
+			PreparedStatement pstmt = conn.prepareStatement(SQL);
+			pstmt.setString(1, clubName);
+			pstmt.setString(2, clubCategory);
+			pstmt.setInt(3, numOfRecruiting);
+			pstmt.setString(4, homepageLink);
+			pstmt.setString(5, preferCondition);
+			pstmt.setString(6, activityField);
+			pstmt.setString(7, intro);
+			pstmt.setString(8, posterImg);
+			pstmt.setString(9, posterFileName);
+			pstmt.setInt(10, posterID);
+			return pstmt.executeUpdate();
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -184,15 +198,13 @@ public class PosterDAO {
 		return -1;	// 데이터베이스 오류
 	}
 	
-	private int insertComment(Poster pos, int userID, String content) {
-		String SQL = "INSERT INTO poster_like VALUES (0, ?, ?, ?, 0)";
+	public int delete(int posterID) {
+		String SQL = "UPDATE poster SET posterAvailable = 0 WHERE posterID = ?";
 		try {
-			PreparedStatement pstmt = conn.prepareStatement(SQL);
-			pstmt.setInt(1, userID);
-			pstmt.setInt(2, pos.getPosterID());
-			pstmt.setString(3, content);
-			return pstmt.executeUpdate();
 			
+			PreparedStatement pstmt = conn.prepareStatement(SQL);
+			pstmt.setInt(1, posterID);	
+			return pstmt.executeUpdate();		
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

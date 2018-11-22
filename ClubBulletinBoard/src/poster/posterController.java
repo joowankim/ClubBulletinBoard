@@ -45,6 +45,8 @@ public class posterController extends HttpServlet {
 		HttpSession session = request.getSession();
 		String sessionID = null;
 		
+		boolean sizeError = false;
+		
 		if (session.getAttribute("sessionID") != null) {
 			sessionID = (String) session.getAttribute("sessionID");
 		}
@@ -56,6 +58,7 @@ public class posterController extends HttpServlet {
 			script.println("</script>");
 		} else {
 		
+			try {
 			// 파일이 저장될 서버의 경로. 되도록이면 getRealPath를 이용		
 			String savePath = request.getServletContext().getRealPath("./image/poster");
 			
@@ -69,7 +72,7 @@ public class posterController extends HttpServlet {
 			// MultipartRequest로 전송받은 데이터를 불러온다
 			// enctype을 "multi/form-data"로 선언하고 submit한 데이터들은 request 객체가 아닌 MultipartRequest 객체로 불러와야 한다
 			String clubName = multi.getParameter("clubName");
-			String clubCategory = multi.getParameter("clubCatgory");
+			String clubCategory = multi.getParameter("clubCategory");
 			int numOfRecruiting = Integer.parseInt(multi.getParameter("numOfRecruiting"));
 			String homepageLink = multi.getParameter("homepageLink");
 			String preferCondition = multi.getParameter("preferCondition");
@@ -93,23 +96,27 @@ public class posterController extends HttpServlet {
 			poster.setActivityField(activityField);
 			poster.setIntro(intro);
 			poster.setPosterImg(fileFullPath);
+			poster.setPosterFileName(fileName);
 			
 			// posterDAO 객체 생성
 			PosterDAO posterDAO = new PosterDAO();
 			
 			// insert 쿼리 수행
-			int result = posterDAO.register(sessionID, poster.getClubName(), 
+			int result = posterDAO.register(
+					sessionID, 
+					poster.getClubName(), 
 					poster.getClubCategory(), 
 					poster.getNumOfRecruiting(), 
 					poster.getHomepageLink(), 
 					poster.getPreferCondition(), 
 					poster.getActivityField(), 
 					poster.getIntro(),
-					poster.getPosterImg());
+					poster.getPosterImg(),
+					poster.getPosterFileName());
 			if (result == -1) {
 				PrintWriter script = response.getWriter();
 				script.println("<script>");
-				script.println("alert('포스터 등록을 실패했습니다')");
+				script.println("alert('fail')");
 				script.println("history.back()");
 				script.println("</script>");
 			} else {
@@ -121,8 +128,22 @@ public class posterController extends HttpServlet {
 				
 			// 출력할 일 있을 때 쓴다
 			request.setAttribute("posterDAO", posterDAO);
+			
+			} catch (Exception e) {
+				if (e.getMessage().indexOf("exceeds limit") > -1) {
+					sizeError = true;
+				}
+			}
 		
 		}
+		
+		if(sizeError) {
+			response.setContentType("text/html; charset=UTF-8");
+			response.setCharacterEncoding("UTF-8");
+			response.getWriter().write("<script>alert(''); location.href='';</script>");
+			return;
+		}
+		
 	}
 
 }
