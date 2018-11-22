@@ -127,19 +127,20 @@
     	$.ajax({
     		url:"./likeController?ids="+ids,
     		type:"GET",
-    		dataType:"json",
+    		dataType:"json",	
+    		context:this,
     		error:function(request, status, error){
     			alert("로그인 후에 이용해주세요");
     		},
     		success:function(data) {
-    				
-    			if ($("i[target='like']").attr("class") == "heart outline icon"){
-    				$("i[target='like']").attr("class", "heart icon");
+    			var str = ids;
+    			if ($(this).children('i').attr("class") == "heart outline icon"){
+    				$(this).children('i').attr("class", "heart icon");
 				} else {
-					$("i[target='like']").attr("class", "heart outline icon");
+					$(this).children('i').attr("class", "heart outline icon");
 				}
     			
-    			$("span.like").text(data["likeCount"] + " likes");
+    			$(this).children("span").text(data["likeCount"] + " likes");
     		}
     	});
     })
@@ -263,7 +264,7 @@
 
 			  <div class="ui link card">
 				<a class="image" href="./DetailPage.jsp?posterID=<%=list.get(i).getPosterID() %>">
-		      	  <img src="./image/sample_image.png">
+		      	  <img src="<%=list.get(i).getPosterImg()%>">
 				</a>
 				<div class="content">
 				  <a class="header" href="./DetailPage.jsp?posterID=<%=list.get(i).getPosterID() %>"><%=list.get(i).getClubName() %></a>
@@ -286,7 +287,7 @@
 				    	<i class="heart outline icon"></i>
 				    <% } %>
 				    
-				       <span class="like"><%=list.get(i).getLikeCount() %> likes</span>
+				       <span id="<%=list.get(i).getPosterID() %>" class="like"><%=list.get(i).getLikeCount() %> likes</span>
 				  </a>
 				  
 				  <span>
