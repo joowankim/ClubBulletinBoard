@@ -164,14 +164,6 @@
 		  if (request.getParameter("pageNumber") != null) {
 			  pageNumber = Integer.parseInt(request.getParameter("pageNumber"));
 		  }
-		  String clubCategory = null;
-		  if (request.getParameter("clubCategory") != null) {
-		  	  clubCategory = (String)request.getParameter("clubCategory");
-		  } else {
-	  %>
-	  		  <script>alert("유효하지 않은 페이지입니다");</script>
-	  <%
-		  }
 	  %>	
 	  <!-- Code for top menu bar -->
 	  <%
@@ -264,7 +256,7 @@
 	  	  		UserDAO userDAO = new UserDAO();
 	  	  		LikeyDAO likeyDAO = new LikeyDAO();
 	  	  		
-	  	  		ArrayList<Poster> list = posterDAO.getCategoryList(pageNumber, clubCategory);
+	  	  		ArrayList<Poster> list = posterDAO.getMyList(pageNumber, Integer.parseInt(sessionID));
 	  	  		for(int i=0; i<list.size(); i++) {
 	  	  	
 	  	  	%>
@@ -314,12 +306,12 @@
 		  if (present > 1) {
 			  present = pageNumber - 1;
 		  %>
-		  		<a class="ui button" href="./PosterPage.jsp?pageNumber=<%=present %>&clubCategory=<%=clubCategory %>">이전</a>
+		  		<a class="ui button" href="./myPage.jsp?pageNumber=<%=present %>">이전</a>
 		  <% }
-		  if (posterDAO.getCategoryList(pageNumber + 1, clubCategory).size() != 0) {
+		  if (posterDAO.getMyList(pageNumber + 1, Integer.parseInt(sessionID)).size() != 0) {
 			  present = pageNumber + 1;
 		  %>
-		  		<a class="ui button" href="./PosterPage.jsp?pageNumber=<%=present %>&clubCategory=<%=clubCategory %>">다음</a>
+		  		<a class="ui button" href="./myPage.jsp?pageNumber=<%=present %>">다음</a>
 		  <% } %>
 		  
 		  

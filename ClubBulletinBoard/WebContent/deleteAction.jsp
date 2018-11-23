@@ -37,6 +37,8 @@
 			} else {
 				
 				PosterDAO posterDAO = new PosterDAO();
+				Poster poster = posterDAO.getPoster(posterID);
+				
 				// delete 쿼리 수행
 				int result = posterDAO.delete(posterID);
 				if (result == -1) {
@@ -48,7 +50,7 @@
 				} else {
 					PrintWriter  script = response.getWriter();
 					script.println("<script>");
-					script.println("location.href = './PosterPage.jsp'");
+					script.println("location.href = './PosterPage.jsp?clubCategory=" + poster.getClubCategory() +"'");
 					script.println("</script>");
 				}
 	

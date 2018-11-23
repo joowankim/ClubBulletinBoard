@@ -122,7 +122,7 @@ public class posterController extends HttpServlet {
 			} else {
 				PrintWriter  script = response.getWriter();
 				script.println("<script>");
-				script.println("location.href = './IndexPage.jsp'");
+				script.println("location.href = './PosterPage.jsp?pageNumber=1&clubCategory="+ poster.getClubCategory() +"'");
 				script.println("</script>");
 			}
 				

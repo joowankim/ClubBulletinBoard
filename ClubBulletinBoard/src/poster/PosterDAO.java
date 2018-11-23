@@ -54,6 +54,39 @@ public class PosterDAO {
 		return -1;	// 데이터베이스 오류
 	}
 	
+	public int getCategoryNext(String clubCategory) {
+		String SQL = "SELECT posterID FROM poster WHERE clubCategory = ? ORDER BY posterID DESC";
+		try {
+			PreparedStatement pstmt = conn.prepareStatement(SQL);
+			pstmt.setString(1, clubCategory);
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				return rs.getInt(1) + 1;
+			}
+			return 1;	// 첫번째 게시물인 경우
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return -1;	// 데이터베이스 오류
+	}
+	
+	public int getMyNext(int userID) {
+		String SQL = "SELECT posterID FROM poster WHERE userID_fk = ? ORDER BY posterID DESC";
+		try {
+			PreparedStatement pstmt = conn.prepareStatement(SQL);
+			pstmt.setInt(1, userID);
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				return rs.getInt(1) + 1;
+			}
+			return 1;	// 첫번째 게시물인 경우
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return -1;	// 데이터베이스 오류
+	}
 	public int getUserID(String userEmail) {
 		String SQL = "SELECT userID FROM user WHERE email = ?";
 		try {
@@ -128,11 +161,74 @@ public class PosterDAO {
 		return list;	
 	}
 	
-	public boolean nextPage(int pageNumber) {
-		String SQL = "SELECT * FROM poster WHERE posterID < ? AND posterAvailable = 1";
+	public ArrayList<Poster> getCategoryList(int pageNumber, String clubCategory) {
+		String SQL = "SELECT * FROM poster WHERE posterID < ? AND posterAvailable = 1 AND clubCategory = ? ORDER BY posterID DESC LIMIT 12";
+		ArrayList<Poster> list = new ArrayList<Poster>();
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(SQL);
-			pstmt.setInt(1, getNext() - (pageNumber - 1) * 10);	// 한 페이지의 목록 개수
+			pstmt.setInt(1, getCategoryNext(clubCategory) - (pageNumber - 1) * 12);	// 한 페이지의 목록 개수
+			pstmt.setString(2, clubCategory);
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				Poster poster = new Poster();
+				poster.setPosterID(rs.getInt(1));
+				poster.setLikeCount(rs.getInt(3));
+				poster.setCommentCount(rs.getInt(4));
+				poster.setClubName(rs.getString(6));
+				poster.setClubCategory(rs.getString(7));
+				poster.setNumOfRecruiting(rs.getInt(8));
+				poster.setHomepageLink(rs.getString(9));
+				poster.setPreferCondition(rs.getString(10));
+				poster.setActivityField(rs.getString(11));
+				poster.setIntro(rs.getString(12));
+				poster.setPosterImg(rs.getString(13));
+				poster.setPosterFileName(rs.getString(14));
+				list.add(poster);
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+	
+	public ArrayList<Poster> getMyList(int pageNumber, int userID) {
+		String SQL = "SELECT * FROM poster WHERE posterID < ? AND posterAvailable = 1 AND userID_fk = ? ORDER BY posterID DESC LIMIT 12";
+		ArrayList<Poster> list = new ArrayList<Poster>();
+		try {
+			PreparedStatement pstmt = conn.prepareStatement(SQL);
+			pstmt.setInt(1, getMyNext(userID) - (pageNumber - 1) * 12);	// 한 페이지의 목록 개수
+			pstmt.setInt(2, userID);
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				Poster poster = new Poster();
+				poster.setPosterID(rs.getInt(1));
+				poster.setLikeCount(rs.getInt(3));
+				poster.setCommentCount(rs.getInt(4));
+				poster.setClubName(rs.getString(6));
+				poster.setClubCategory(rs.getString(7));
+				poster.setNumOfRecruiting(rs.getInt(8));
+				poster.setHomepageLink(rs.getString(9));
+				poster.setPreferCondition(rs.getString(10));
+				poster.setActivityField(rs.getString(11));
+				poster.setIntro(rs.getString(12));
+				poster.setPosterImg(rs.getString(13));
+				poster.setPosterFileName(rs.getString(14));
+				list.add(poster);
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+	
+	public boolean nextPage(int pageNumber, String clubCategory) {
+		String SQL = "SELECT * FROM poster WHERE posterID < ? AND posterAvailable = 1 AND clubCategory = ? ORDER BY posterID DESC LIMIT 12";
+		try {
+			PreparedStatement pstmt = conn.prepareStatement(SQL);
+			pstmt.setInt(1, getCategoryNext(clubCategory) - (pageNumber - 1) * 12);	// 한 페이지의 목록 개수
+			pstmt.setString(2, clubCategory);
 			rs = pstmt.executeQuery();
 			if (rs.next()) {	// 결과가 존재하면 다음페이지로 넘어갈 수 있다
 				return true;

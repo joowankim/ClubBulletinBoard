@@ -78,10 +78,10 @@
 			<i class="dropdown icon"></i>
 			<div class="menu">
 				<div class="header">Categories</div>
-				<a href="" class="item">sports</a>
-				<a class="item">art</a>
-				<a class="item">study</a>
-				<a class="item">contest</a>
+				<a href="./PosterPage.jsp?pageNumber=1&clubCategory=sports" class="item">sports</a>
+				<a href="./PosterPage.jsp?pageNumber=1&clubCategory=art" class="item">art</a>
+				<a href="./PosterPage.jsp?pageNumber=1&clubCategory=study" class="item">study</a>
+				<a href="./PosterPage.jsp?pageNumber=1&clubCategory=contest" class="item">contest</a>
 				<div class="divider"></div>
 				<div class="header">Register</div>
 				<a class="item" href="./Register.jsp">new</a>
@@ -114,10 +114,10 @@
 			<i class="dropdown icon"></i>
 			<div class="menu">
 				<div class="header">Categories</div>
-				<a href="" class="item">sports</a>
-				<a class="item">art</a>
-				<a class="item">study</a>
-				<a class="item">contest</a>
+				<a href="./PosterPage.jsp?pageNumber=1&clubCategory=sports" class="item">sports</a>
+				<a href="./PosterPage.jsp?pageNumber=1&clubCategory=art" class="item">art</a>
+				<a href="./PosterPage.jsp?pageNumber=1&clubCategory=study" class="item">study</a>
+				<a href="./PosterPage.jsp?pageNumber=1&clubCategory=contest" class="item">contest</a>
 				<div class="divider"></div>
 				<div class="header">Register</div>
 				<a class="item" href="./Register.jsp">new</a>
