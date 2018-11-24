@@ -36,7 +36,7 @@
 						<a class="item">new</a>
 						<a class="item">edit</a>
 					</div>
-				</div>
+		</div>
 		
 	    <div class="right menu">
 	      <div class="item">

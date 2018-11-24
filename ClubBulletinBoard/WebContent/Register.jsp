@@ -8,110 +8,246 @@
   <link rel="stylesheet" type="text/css" href="./semantic/semantic.min.css">
   <script
     src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"
-    integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+    integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
   crossorigin="anonymous"></script>
   <script src="./semantic/semantic.min.js"></script>
 <title>Insert title here</title>
 </head>
 <body>
+
+	<%
+		String sessionID = null;
+		if (session.getAttribute("sessionID") != null) {
+			sessionID = (String) session.getAttribute("sessionID");
+		}
+	%>	
 	<!-- Code for top menu bar -->
+	<%
+		if (sessionID == null) {			
+	%>
 	<div class="ui large top fixed hidden menu">
 	  <div class="ui container">
-	  	<a href="" class="active item">Home</a>
-	   	<a href="#Work" class="item">Work</a>
+	    <a href="" class="item">Home</a>
+	    <a href="#Work" class="item">Work</a>
 	    <a href="#Company" class="item">Company</a>
 		<div class="ui pointing dropdown link item">
 			<span class="text">Clubs</span>
 			<i class="dropdown icon"></i>
-				<div class="menu">
-					<div class="header">Categories</div>
-						<a href="" class="item">sports</a>
-						<a class="item">art</a>
-						<a class="item">study</a>
-						<a class="item">contest</a>
-					<div class="divider"></div>
-					<div class="header">Register</div>
-						<a class="item">new</a>
-						<a class="item">edit</a>
-					</div>
-				</div>
+			<div class="menu">
+				<div class="header">Categories</div>
+				<a href="./PosterPage.jsp?pageNumber=1&clubCategory=sports" class="item">sports</a>
+				<a href="./PosterPage.jsp?pageNumber=1&clubCategory=art" class="item">art</a>
+				<a href="./PosterPage.jsp?pageNumber=1&clubCategory=study" class="item">study</a>
+				<a href="./PosterPage.jsp?pageNumber=1&clubCategory=contest" class="item">contest</a>
+				<div class="divider"></div>
+				<div class="header">Register</div>
+				<a class="item" href="./Register.jsp">new</a>
+				<a class="item">edit</a>
+			</div>
+		</div>
 		
 	    <div class="right menu">
 	      <div class="item">
-	        <a class="ui button">Log in</a>
+	        <a href="./LoginPage.jsp" class="ui button">Log in</a>
 	      </div>
 	      <div class="item">
-	        <a class="ui primary button">Sign Up</a>
+	        <button id="signUp" class="ui primary button">Sign Up</button>
 	      </div>
 	    </div>
 	  </div>
 	</div>
 	
-	<br>
-	<br>
+	<%
+		} else {	
+	%>
 	
+	<div class="ui large top fixed hidden menu">
+	  <div class="ui container">
+	    <a href="" class="item">Home</a>
+	    <a href="#Work" class="item">Work</a>
+	    <a href="#Company" class="item">Company</a>
+		<div class="ui pointing dropdown link item">
+			<span class="text">Clubs</span>
+			<i class="dropdown icon"></i>
+			<div class="menu">
+				<div class="header">Categories</div>
+				<a href="./PosterPage.jsp?pageNumber=1&clubCategory=sports" class="item">sports</a>
+				<a href="./PosterPage.jsp?pageNumber=1&clubCategory=art" class="item">art</a>
+				<a href="./PosterPage.jsp?pageNumber=1&clubCategory=study" class="item">study</a>
+				<a href="./PosterPage.jsp?pageNumber=1&clubCategory=contest" class="item">contest</a>
+				<div class="divider"></div>
+				<div class="header">Register</div>
+				<a class="item" href="./Register.jsp">new</a>
+				<a class="item">edit</a>
+			</div>
+		</div>
+	    <div class="right menu">
+	      <div class="item">
+	      	<form method="post" action="./LogOut.jsp">
+	        	<input type="submit" class="ui fluid large teal submit button" value="Log out"></input>
+	        </form>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+	
+	<% } %>		
+	
+	<br>
+	<br>
 	<h2>동아리 정보를 입력해 주세요 </h2>
 	
 	<div class="ui very padded segment">
-	<form class="ui form">
-  		<div class="field">
-    		<label>동아리명 </label>
-    		<input type="text" name="first-name" placeholder="동아리 이름을 입력 해주세요 ">
-  		</div>
-  		<div class="field">
-    		<label>카테고리 </label>
-   		 	<select name="category">
-   		 		<option value="sports">스포츠</option>
-   		 		<option value="art">예술</option>
-   		 		<option value="fun">친목</option>
-   		 		<option value="study">학술</option>
-   		 	</select>
-  		</div>
-  		
-  		<div class="field">
-    		<label>모집 인원 </label>
-   		 	<input type="text" name="last-name" placeholder="Last Name">
-  		</div>
-  		
-  		<div class="field">
-    		<label>홈페이지 링크 </label>
-   		 	<input type="text" name="last-name" placeholder="Last Name">
-  		</div>
-  		
-  		<div class="field">
-    		<label>우대 조건 </label>
-   		 	<input type="text" name="last-name" placeholder="Last Name">
-  		</div>
-  		
-  		<div class="field">
-    		<label>활동 분야 </label>
-   		 	<input type="text" name="last-name" placeholder="Last Name">
-  		</div>
-  		
-  		<div class="ui form">
-  			<div class="field">
-    			<label>상세 소개 </label>
-    			<textarea></textarea>
-  			</div>
-  		</div>
-  		<br>
-  		
-  		<!-- Image insert code  -->
-		<div class="ui placeholder segment">
-  			<div class="ui icon header">
-    			<i class="pdf file outline icon"></i>
-    				포스터 사진을 첨부해 주세요 
- 		 	</div>
-  			<div class="ui primary button">Add Picture</div>
-		</div>
 		
-		<br>
-		
-  		<button class="ui button" type="submit">Submit</button>
-	</form>
+		<form class="ui form" action="./posterAction" method="post" enctype="multipart/form-data">
+	  		<div class="field">
+	    		<label>동아리명 </label>
+	    		<input type="text" name="clubName" placeholder="동아리 이름을 입력 해주세요 ">
+	  		</div>
+	  		<div class="field">
+	    		<label>카테고리 </label>
+	   		 	<select name="clubCategory">
+	   		 		<option value="">카테고리</option>
+	   		 		<option value="sports">스포츠</option>
+	   		 		<option value="art">예술</option>
+	   		 		<option value="study">학술</option>
+	   		 		<option value="contest">공모전</option>
+	   		 	</select>
+	  		</div>
+	  		
+	  		<div class="field">
+	    		<label>모집 인원 </label>
+	   		 	<input type="text" name="numOfRecruiting" placeholder="Last Name">
+	  		</div>
+	  		
+	  		<div class="field">
+	    		<label>홈페이지 링크 </label>
+	   		 	<input type="text" name="homepageLink" placeholder="Last Name">
+	  		</div>
+	  		
+	  		<div class="field">
+	    		<label>우대 조건 </label>
+	   		 	<input type="text" name="preferCondition" placeholder="Last Name">
+	  		</div>
+	  		
+	  		<div class="field">
+	    		<label>활동 분야 </label>
+	   		 	<input type="text" name="activityField" placeholder="Last Name">
+	  		</div>
+	  		
+	  		<div class="ui form">
+	  			<div class="field">
+	    			<label>상세 소개 </label>
+	    			<textarea name="intro"></textarea>
+	  			</div>
+	  		</div>
+	  		<br>
+	  		
+	  		<div class="ui error message"></div>
+	  		
+	  		<!-- Image insert code  -->
+			<div class="ui placeholder segment">
+	  			<div class="ui icon header">
+	    			<i class="pdf file outline icon"></i>
+	    				포스터 사진을 첨부해 주세요 
+	 		 	</div>
+	  			<input type="file" name="posterImg" class="ui primary button"></input>
+			</div>
+			
+			<br>
+			
+	  		<input class="ui button" type="submit"></input>
+		</form>
 	</div>
 	
 
 	
 </body>
+</html>
+<script>
+$('.ui.form')
+.form({
+  fields: {
+    clubName: {
+      identifier: 'clubName',
+      rules: [
+        {
+          type   : 'empty',
+          prompt : '이름을 입력해 주세요'
+        }
+      ]
+    },
+    clubCategory: {
+      identifier: 'clubCategory',
+      rules: [
+        {
+          type   : 'empty',
+          prompt : '카테고리를 선택해 주세요'
+        }
+      ]
+    },
+    numOfRecruiting: {
+      identifier: 'numOfRecruiting',
+      rules: [
+        {
+          type   : 'empty',
+          prompt : '모집인원을 설정해 주세요'
+        },
+        {
+        	type   : 'number',
+        	prompt : '숫자를 입력해 주세요'
+        }
+      ]
+    },
+    homepageLink: {
+      identifier: 'homepageLink',
+      rules: [
+       	{
+        	type   : 'url',
+        	prompt : '홈페이지 주소를 형식에 맞게 입력해 주세요'
+       	}
+      ]
+    },
+    preferCondition: {
+      identifier: 'preferCondition',
+      rules: [
+        {
+          type   : 'empty',
+          prompt : '우대 조건을 입력해 주세요'
+        },
+        
+      ]
+    },
+    activityField: {
+      identifier: 'activityField',
+      rules: [
+        {
+          type   : 'empty',
+          prompt : '활동 분야를 입력해 주세요'
+        }
+      ]
+    },
+    intro:{
+    	identifier:'intro',
+    	rules: [
+    		{
+    			type   : 'empty',
+    			prompt : '상세 소개 내용을 입력해 주세요'
+    		}
+    	]
+    },
+    posterImg:{
+    	identifier:'posterImg',
+    	rules: [
+    	   {
+    		   type : 'empty',
+    		   prompt : '포스터 이미지를 등록해 주세요'
+    	   }
+    	]
+    }
+    
+  }
+})
+;
+</script>
 </html>
