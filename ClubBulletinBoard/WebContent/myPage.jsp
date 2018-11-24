@@ -242,7 +242,7 @@
 		  	  <h1 class="ui header">
 				<img class="ui image" src="./image/sample_image.png">
 				<div class="content">
-				  	Study
+				  	My Page
 				</div>
 			  </h1>
 	  	  </div>
