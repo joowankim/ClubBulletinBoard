@@ -130,9 +130,15 @@ public class posterController extends HttpServlet {
 			request.setAttribute("posterDAO", posterDAO);
 			
 			} catch (Exception e) {
+				e.printStackTrace();
 				if (e.getMessage().indexOf("exceeds limit") > -1) {
 					sizeError = true;
 				}
+				PrintWriter script = response.getWriter();
+				script.println("<script>");
+				script.println("alert('exception')");
+				script.println("history.back()");
+				script.println("</script>");
 			}
 		
 		}

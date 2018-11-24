@@ -12,6 +12,7 @@
     integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
   crossorigin="anonymous"></script>
   <script src="./semantic/semantic.min.js"></script>
+
   
   <title>Insert title here</title>
   
@@ -19,6 +20,91 @@
   $(document)
   .ready(function() {
 	  $('.ui.dropdown').dropdown();
+	  
+	  $('#register')
+		.form({
+		  fields: {
+		    clubName: {
+		      identifier: 'clubName',
+		      rules: [
+		        {
+		          type   : 'empty',
+		          prompt : '이름을 입력해 주세요'
+		        }
+		      ]
+		    },
+		    clubCategory: {
+		      identifier: 'clubCategory',
+		      rules: [
+		        {
+		          type   : 'empty',
+		          prompt : '카테고리를 선택해 주세요'
+		        }
+		      ]
+		    },
+		    numOfRecruiting: {
+		      identifier: 'numOfRecruiting',
+		      rules: [
+		        {
+		          type   : 'empty',
+		          prompt : '모집인원을 설정해 주세요'
+		        },
+		        {
+		        	type   : 'number',
+		        	prompt : '숫자를 입력해 주세요'
+		        }
+		      ]
+		    },
+		    homepageLink: {
+		      identifier: 'homepageLink',
+		      rules: [
+		       	{
+		        	type   : 'url',
+		        	prompt : '홈페이지 주소를 형식에 맞게 입력해 주세요'
+		       	}
+		      ]
+		    },
+		    preferCondition: {
+		      identifier: 'preferCondition',
+		      rules: [
+		        {
+		          type   : 'empty',
+		          prompt : '우대 조건을 입력해 주세요'
+		        },
+		        
+		      ]
+		    },
+		    activityField: {
+		      identifier: 'activityField',
+		      rules: [
+		        {
+		          type   : 'empty',
+		          prompt : '활동 분야를 입력해 주세요'
+		        }
+		      ]
+		    },
+		    intro:{
+		    	identifier:'intro',
+		    	rules: [
+		    		{
+		    			type   : 'empty',
+		    			prompt : '상세 소개 내용을 입력해 주세요'
+		    		}
+		    	]
+		    },
+		    posterImg:{
+		    	identifier:'posterImg',
+		    	rules: [
+		    	   {
+		    		   type : 'empty',
+		    		   prompt : '포스터 이미지를 등록해 주세요'
+		    	   }
+		    	]
+		    }
+		    
+		  }
+		})
+		;
   });
   </script>
  
@@ -110,7 +196,7 @@
 	
 	<div class="ui very padded segment">
 		
-		<form class="ui form" action="./posterAction" method="post" enctype="multipart/form-data">
+		<form id="register" class="ui form" action="./posterAction" method="post" enctype="multipart/form-data">
 	  		<div class="field">
 	    		<label>동아리명 </label>
 	    		<input type="text" name="clubName" placeholder="동아리 이름을 입력 해주세요 ">
