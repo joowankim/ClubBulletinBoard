@@ -85,7 +85,7 @@
 				<div class="divider"></div>
 				<div class="header">Register</div>
 				<a class="item" href="./Register.jsp">new</a>
-				<a class="item">edit</a>
+				<a class="item" href="./myPage.jsp">myPage</a>
 			</div>
 		</div>
 		
@@ -121,7 +121,7 @@
 				<div class="divider"></div>
 				<div class="header">Register</div>
 				<a class="item" href="./Register.jsp">new</a>
-				<a class="item">edit</a>
+				<a class="item" href="./myPage.jsp">myPage</a>
 			</div>
 		</div>
 	    <div class="right menu">

@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
+<%@ page import="java.io.PrintWriter" %>
+<%@ page import="poster.Poster" %>
+<%@ page import="poster.PosterDAO" %>    
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -117,6 +119,18 @@
 		if (session.getAttribute("sessionID") != null) {
 			sessionID = (String) session.getAttribute("sessionID");
 		}
+		int posterID = 0;
+		if (request.getParameter("posterID") != null) {
+			posterID = Integer.parseInt(request.getParameter("posterID"));
+		}
+		if (posterID == 0) {
+			PrintWriter script = response.getWriter();
+			script.println("<script>");
+			script.println("alert('유효하지 않은 포스터입니다')");
+			script.println("history.back()");
+			script.println("</script>");
+		}
+		Poster poster = new PosterDAO().getPoster(posterID);
 	%>	
 	<!-- Code for top menu bar -->
 	<%
@@ -192,19 +206,19 @@
 	
 	<br>
 	<br>
-	<h2>동아리 정보를 입력해 주세요 </h2>
+	<h2>변경할 동아리 정보를 입력해 주세요 </h2>
 	
 	<div class="ui very padded segment">
 		
 		<form id="register" class="ui form" action="./posterAction" method="post" enctype="multipart/form-data">
 	  		<div class="field">
 	    		<label>동아리명 </label>
-	    		<input type="text" name="clubName" placeholder="동아리 이름을 입력 해주세요 ">
+	    		<input type="text" name="clubName" placeholder="동아리 이름을 입력 해주세요 " value="<%=poster.getClubName()%>">
 	  		</div>
 	  		<div class="field">
 	    		<label>카테고리 </label>
 	   		 	<select name="clubCategory">
-	   		 		<option value="">카테고리</option>
+	   		 		<option value="<%=poster.getClubCategory() %>"><%=poster.getClubCategory() %></option>
 	   		 		<option value="sports">스포츠</option>
 	   		 		<option value="art">예술</option>
 	   		 		<option value="study">학술</option>
@@ -214,28 +228,28 @@
 	  		
 	  		<div class="field">
 	    		<label>모집 인원 </label>
-	   		 	<input type="text" name="numOfRecruiting" placeholder="Last Name">
+	   		 	<input type="text" name="numOfRecruiting" placeholder="Last Name" value="<%=poster.getNumOfRecruiting()%>">
 	  		</div>
 	  		
 	  		<div class="field">
 	    		<label>홈페이지 링크 </label>
-	   		 	<input type="text" name="homepageLink" placeholder="Last Name">
+	   		 	<input type="text" name="homepageLink" placeholder="Last Name" value="<%=poster.getHomepageLink()%>">
 	  		</div>
 	  		
 	  		<div class="field">
 	    		<label>우대 조건 </label>
-	   		 	<input type="text" name="preferCondition" placeholder="Last Name">
+	   		 	<input type="text" name="preferCondition" placeholder="Last Name" value="<%=poster.getPreferCondition()%>">
 	  		</div>
 	  		
 	  		<div class="field">
 	    		<label>활동 분야 </label>
-	   		 	<input type="text" name="activityField" placeholder="Last Name">
+	   		 	<input type="text" name="activityField" placeholder="Last Name" value="<%=poster.getActivityField()%>">
 	  		</div>
 	  		
 	  		<div class="ui form">
 	  			<div class="field">
 	    			<label>상세 소개 </label>
-	    			<textarea name="intro"></textarea>
+	    			<textarea name="intro"><%=poster.getIntro()%></textarea>
 	  			</div>
 	  		</div>
 	  		<br>

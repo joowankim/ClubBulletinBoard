@@ -194,7 +194,7 @@
 				  <div class="divider"></div>
 				  <div class="header">Register</div>
 				  <a class="item" href="./Register.jsp">new</a>
-			  	  <a class="item">edit</a>
+			  	  <a class="item" href="./myPage.jsp">myPage</a>
 			  </div>
 		  </div>
 		
@@ -230,7 +230,7 @@
 				  <div class="divider"></div>
 				  <div class="header">Register</div>
 				  <a class="item" href="./Register.jsp">new</a>
-				  <a class="item">edit</a>
+				  <a class="item" href="./myPage.jsp">myPage</a>
 			  </div>
 		  </div>
   	      <div class="right menu">
@@ -250,7 +250,7 @@
 		  	  <h1 class="ui header">
 				<img class="ui image" src="./image/sample_image.png">
 				<div class="content">
-				  	Study
+				  	<%=clubCategory %>
 				</div>
 			  </h1>
 	  	  </div>

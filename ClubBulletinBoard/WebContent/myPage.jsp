@@ -186,7 +186,7 @@
 				  <div class="divider"></div>
 				  <div class="header">Register</div>
 				  <a class="item" href="./Register.jsp">new</a>
-			  	  <a class="item">edit</a>
+			  	  <a class="item" href="./myPage.jsp">edit</a>
 			  </div>
 		  </div>
 		
@@ -222,7 +222,7 @@
 				  <div class="divider"></div>
 				  <div class="header">Register</div>
 				  <a class="item" href="./Register.jsp">new</a>
-				  <a class="item">edit</a>
+				  <a class="item" href="./myPage.jsp">myPage</a>
 			  </div>
 		  </div>
   	      <div class="right menu">
@@ -263,13 +263,13 @@
 	  	    <div class="column">	  	    	
 
 			  <div class="ui link card">
-				<a class="image" href="./DetailPage.jsp?posterID=<%=list.get(i).getPosterID() %>">
+				<a class="image" href="./EditPage.jsp?posterID=<%=list.get(i).getPosterID() %>">
 		      	  <img src="<%=request.getContextPath()%>/image/poster/<%=list.get(i).getPosterFileName()%>">
 				</a>
 				<div class="content">
-				  <a class="header" href="./DetailPage.jsp?posterID=<%=list.get(i).getPosterID() %>"><%=list.get(i).getClubName().replaceAll(" ", "&nbsp;").replaceAll("<", "&lt;").replaceAll(">", "&gt").replaceAll("\n", "<br>") %></a>
+				  <a class="header" href="./EditPage.jsp?posterID=<%=list.get(i).getPosterID() %>"><%=list.get(i).getClubName().replaceAll(" ", "&nbsp;").replaceAll("<", "&lt;").replaceAll(">", "&gt").replaceAll("\n", "<br>") %></a>
 				  <div class="meta">
-				    <a href="./DetailPage.jsp?posterID=<%=list.get(i).getPosterID() %>"><%=list.get(i).getActivityField().replaceAll(" ", "&nbsp;").replaceAll("<", "&lt;").replaceAll(">", "&gt").replaceAll("\n", "<br>") %></a>
+				    <a href="./EditPage.jsp?posterID=<%=list.get(i).getPosterID() %>"><%=list.get(i).getActivityField().replaceAll(" ", "&nbsp;").replaceAll("<", "&lt;").replaceAll(">", "&gt").replaceAll("\n", "<br>") %></a>
 				  </div>		
 				</div>
 				<div class="extra content">
