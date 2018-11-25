@@ -95,17 +95,16 @@
 	
 	<br>
 	<br>
-	<h2>동아리 정보를 입력해 주세요 </h2>
 	
 	<div class="ui very padded segment">
-		
-		<form class="ui form" action="./posterAction" method="post" enctype="multipart/form-data">
+		<h2>동아리 정보를 입력해 주세요 </h2>
+		<form class="ui form segment" action="./posterAction" method="post" enctype="multipart/form-data">
 	  		<div class="field">
-	    		<label>동아리명 </label>
-	    		<input type="text" name="clubName" placeholder="동아리 이름을 입력 해주세요 ">
-	  		</div>
+	    		<label for>동아리명 </label>
+	    		<input type="text" name="clubName" placeholder="동아리 이름 ">
+	    	</div>
 	  		<div class="field">
-	    		<label>카테고리 </label>
+	    		<label for>카테고리 </label>
 	   		 	<select name="clubCategory">
 	   		 		<option value="">카테고리</option>
 	   		 		<option value="sports">스포츠</option>
@@ -116,34 +115,32 @@
 	  		</div>
 	  		
 	  		<div class="field">
-	    		<label>모집 인원 </label>
-	   		 	<input type="text" name="numOfRecruiting" placeholder="Last Name">
+	    		<label for>모집 인원 </label>
+	   		 	<input type="text" name="numOfRecruiting" placeholder="모집 인원">
 	  		</div>
 	  		
 	  		<div class="field">
-	    		<label>홈페이지 링크 </label>
-	   		 	<input type="text" name="homepageLink" placeholder="Last Name">
+	    		<label for>홈페이지 링크 </label>
+	   		 	<input type="text" name="homepageLink" placeholder="홈페이지 주소">
 	  		</div>
 	  		
 	  		<div class="field">
-	    		<label>우대 조건 </label>
-	   		 	<input type="text" name="preferCondition" placeholder="Last Name">
+	    		<label for>우대 조건 </label>
+	   		 	<input type="text" name="preferCondition" placeholder="우대 조건">
 	  		</div>
 	  		
 	  		<div class="field">
-	    		<label>활동 분야 </label>
-	   		 	<input type="text" name="activityField" placeholder="Last Name">
+	    		<label for>활동 분야 </label>
+	   		 	<input type="text" name="activityField" placeholder="활동 분야">
 	  		</div>
 	  		
 	  		<div class="ui form">
 	  			<div class="field">
-	    			<label>상세 소개 </label>
+	    			<label for>상세 소개 </label>
 	    			<textarea name="intro"></textarea>
 	  			</div>
 	  		</div>
 	  		<br>
-	  		
-	  		<div class="ui error message"></div>
 	  		
 	  		<!-- Image insert code  -->
 			<div class="ui placeholder segment">
@@ -156,7 +153,7 @@
 			
 			<br>
 			
-	  		<input class="ui button" type="submit"></input>
+	  		<input class="ui blue button" type="submit"></input>
 		</form>
 	</div>
 	
@@ -165,15 +162,17 @@
 </body>
 </html>
 <script>
+
+(function($){
 $('.ui.form')
 .form({
-  fields: {
     clubName: {
       identifier: 'clubName',
       rules: [
         {
           type   : 'empty',
-          prompt : '이름을 입력해 주세요'
+          prompt : '동아리 이름을 입력해 주세요'
+     		
         }
       ]
     },
@@ -246,8 +245,13 @@ $('.ui.form')
     	]
     }
     
-  }
-})
-;
+  },{
+	on:'blur',
+	inline:'true'
+});
+}(jQuery));
+
+
+
 </script>
 </html>
