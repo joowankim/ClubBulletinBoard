@@ -163,11 +163,11 @@
   			<p><%=poster.getIntro().replaceAll(" ", "&nbsp;").replaceAll("<", "&lt;").replaceAll(">", "&gt").replaceAll("\n", "<br>") %></p>
 		</div>
 		
-		<a class="ui button" href="./PosterPage.jsp">목록</a>
+		<a class="ui button" href="./PosterPage.jsp?pageNumber=1&clubCategory=<%=poster.getClubCategory() %>">목록</a>
 		<%
 			if(sessionID != null && sessionID.equals(String.valueOf(poster.getUserID()))){
 		%>
-				<a href="update.jsp?posterID=<%=posterID%>" class="ui button">수정</a>
+				<a href="./EditPage.jsp?posterID=<%=posterID %>" class="ui button">수정</a>
 				<a onclick="return confirm('정말로 삭제하시겠습니까?')" href="deleteAction.jsp?posterID=<%=posterID%>" class="ui button">삭제</a>
 		<%
 			}
