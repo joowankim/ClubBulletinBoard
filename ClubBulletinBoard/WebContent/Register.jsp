@@ -21,90 +21,93 @@
   .ready(function() {
 	  $('.ui.dropdown').dropdown();
 	  
-	  $('#register')
-		.form({
-		  fields: {
-		    clubName: {
-		      identifier: 'clubName',
-		      rules: [
-		        {
-		          type   : 'empty',
-		          prompt : '이름을 입력해 주세요'
-		        }
-		      ]
-		    },
-		    clubCategory: {
-		      identifier: 'clubCategory',
-		      rules: [
-		        {
-		          type   : 'empty',
-		          prompt : '카테고리를 선택해 주세요'
-		        }
-		      ]
-		    },
-		    numOfRecruiting: {
-		      identifier: 'numOfRecruiting',
-		      rules: [
-		        {
-		          type   : 'empty',
-		          prompt : '모집인원을 설정해 주세요'
-		        },
-		        {
-		        	type   : 'number',
-		        	prompt : '숫자를 입력해 주세요'
-		        }
-		      ]
-		    },
-		    homepageLink: {
-		      identifier: 'homepageLink',
-		      rules: [
-		       	{
-		        	type   : 'url',
-		        	prompt : '홈페이지 주소를 형식에 맞게 입력해 주세요'
-		       	}
-		      ]
-		    },
-		    preferCondition: {
-		      identifier: 'preferCondition',
-		      rules: [
-		        {
-		          type   : 'empty',
-		          prompt : '우대 조건을 입력해 주세요'
-		        },
-		        
-		      ]
-		    },
-		    activityField: {
-		      identifier: 'activityField',
-		      rules: [
-		        {
-		          type   : 'empty',
-		          prompt : '활동 분야를 입력해 주세요'
-		        }
-		      ]
-		    },
-		    intro:{
-		    	identifier:'intro',
-		    	rules: [
-		    		{
-		    			type   : 'empty',
-		    			prompt : '상세 소개 내용을 입력해 주세요'
-		    		}
-		    	]
-		    },
-		    posterImg:{
-		    	identifier:'posterImg',
-		    	rules: [
-		    	   {
-		    		   type : 'empty',
-		    		   prompt : '포스터 이미지를 등록해 주세요'
-		    	   }
-		    	]
-		    }
-		    
-		  }
-		})
-		;
+	  (function($){
+		  $('#register')
+		  .form({
+		      clubName: {
+		        identifier: 'clubName',
+		        rules: [
+		          {
+		            type   : 'empty',
+		            prompt : '동아리 이름을 입력해 주세요'
+		       		
+		          }
+		        ]
+		      },
+		      clubCategory: {
+		        identifier: 'clubCategory',
+		        rules: [
+		          {
+		            type   : 'empty',
+		            prompt : '카테고리를 선택해 주세요'
+		          }
+		        ]
+		      },
+		      numOfRecruiting: {
+		        identifier: 'numOfRecruiting',
+		        rules: [
+		          {
+		            type   : 'empty',
+		            prompt : '모집인원을 설정해 주세요'
+		          },
+		          {
+		          	type   : 'number',
+		          	prompt : '숫자를 입력해 주세요'
+		          }
+		        ]
+		      },
+		      homepageLink: {
+		        identifier: 'homepageLink',
+		        rules: [
+		         	{
+		          	type   : 'url',
+		          	prompt : '홈페이지 주소를 형식에 맞게 입력해 주세요'
+		         	}
+		        ]
+		      },
+		      preferCondition: {
+		        identifier: 'preferCondition',
+		        rules: [
+		          {
+		            type   : 'empty',
+		            prompt : '우대 조건을 입력해 주세요'
+		          },
+		          
+		        ]
+		      },
+		      activityField: {
+		        identifier: 'activityField',
+		        rules: [
+		          {
+		            type   : 'empty',
+		            prompt : '활동 분야를 입력해 주세요'
+		          }
+		        ]
+		      },
+		      intro:{
+		      	identifier:'intro',
+		      	rules: [
+		      		{
+		      			type   : 'empty',
+		      			prompt : '상세 소개 내용을 입력해 주세요'
+		      		}
+		      	]
+		      },
+		      posterImg:{
+		      	identifier:'posterImg',
+		      	rules: [
+		      	   {
+		      		   type : 'empty',
+		      		   prompt : '포스터 이미지를 등록해 주세요'
+		      	   }
+		      	]
+		      }
+		      
+		    },{
+		  	on:'blur',
+		  	inline:'true'
+		  });
+		  }(jQuery));
   });
   </script>
  
@@ -192,14 +195,14 @@
 	
 	<br>
 	<br>
-	<h2>동아리 정보를 입력해 주세요 </h2>
+	
 	
 	<div class="ui very padded segment">
-		
+		<h2>동아리 정보를 입력해 주세요 </h2>
 		<form id="register" class="ui form" action="./posterAction" method="post" enctype="multipart/form-data">
 	  		<div class="field">
 	    		<label>동아리명 </label>
-	    		<input type="text" name="clubName" placeholder="동아리 이름을 입력 해주세요 ">
+	    		<input type="text" name="clubName" placeholder="동아리 이름 ">
 	  		</div>
 	  		<div class="field">
 	    		<label>카테고리 </label>
@@ -214,22 +217,22 @@
 	  		
 	  		<div class="field">
 	    		<label>모집 인원 </label>
-	   		 	<input type="text" name="numOfRecruiting" placeholder="Last Name">
+	   		 	<input type="text" name="numOfRecruiting" placeholder="모집 인원">
 	  		</div>
 	  		
 	  		<div class="field">
 	    		<label>홈페이지 링크 </label>
-	   		 	<input type="text" name="homepageLink" placeholder="Last Name">
+	   		 	<input type="text" name="homepageLink" placeholder="홈페이지 주소">
 	  		</div>
 	  		
 	  		<div class="field">
 	    		<label>우대 조건 </label>
-	   		 	<input type="text" name="preferCondition" placeholder="Last Name">
+	   		 	<input type="text" name="preferCondition" placeholder="우대 조건">
 	  		</div>
 	  		
 	  		<div class="field">
 	    		<label>활동 분야 </label>
-	   		 	<input type="text" name="activityField" placeholder="Last Name">
+	   		 	<input type="text" name="activityField" placeholder="활동 분야">
 	  		</div>
 	  		
 	  		<div class="ui form">
@@ -251,7 +254,7 @@
 			
 			<br>
 			
-	  		<input class="ui button" type="submit"></input>
+	  		<input class="ui blue button" type="submit"></input>
 		</form>
 	</div>
 	
