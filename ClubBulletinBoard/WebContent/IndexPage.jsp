@@ -354,7 +354,6 @@
 	        Gachon<br>Club Bulletin Board
 	      </h1>
 	      <h2>Find Your Clubs You Want</h2>
-	      <div class="ui huge primary button">바로 시작하세요 <i class="right arrow icon"></i></div>
 	    </div>
 	
 	  </div>
@@ -402,25 +401,25 @@
 	  <div class="ui vertical stripe segment">
 	    <div class="ui middle aligned stackable four column grid container">
 	    	<div class="column">    	
-	    		<a href="">
+	    		<a href="./PosterPage.jsp?pageNumber=1&clubCategory=sports">
 	    			<img class="ui circular medium image" src="./image/sample_image.png">
 	    			<h3 class="ui center aligned header">sports</h3>
 	    		</a>
     		</div>
 	    	<div class="column">
-	    		<a href="">
+	    		<a href="./PosterPage.jsp?pageNumber=1&clubCategory=art">
 	    			<img class="ui circular medium image" src="./image/sample_image.png">
 	    			<h3 class="ui center aligned header">art</h3>
 	    		</a>	    		
 	    	</div>
 	    	<div class="column">	    		
-	    		<a href="">
+	    		<a href="./PosterPage.jsp?pageNumber=1&clubCategory=study">
 	    			<img class="ui circular medium image" src="./image/sample_image.png">
 	    			<h3 class="ui center aligned header">study</h3>
 	    		</a>	    		
 	    	</div>
 	    	<div class="column">	    		
-	    		<a href="">
+	    		<a href="./PosterPage.jsp?pageNumber=1&clubCategory=contest">
 	    			<img class="ui circular medium image" src="./image/sample_image.png">
 	    			<h3 class="ui center aligned header">contest</h3>
 	    		</a>	    		

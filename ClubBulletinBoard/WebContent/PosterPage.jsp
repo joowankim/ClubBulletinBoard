@@ -179,9 +179,7 @@
 	  %>
 	  <div class="ui large top menu">
 	    <div class="ui container">
-	      <a href="" class="item">Home</a>
-	      <a href="#Work" class="item">Work</a>
-	      <a href="#Company" class="item">Company</a>
+	      <a href="./IndexPage.jsp" class="item">Home</a>
 		  <div class="ui pointing dropdown link item">
 			  <span class="text">Clubs</span>
 			  <i class="dropdown icon"></i>
@@ -215,9 +213,7 @@
 	
 	  <div class="ui large top menu">
 	    <div class="ui container">
-	      <a href="" class="item">Home</a>
-	      <a href="#Work" class="item">Work</a>
-	      <a href="#Company" class="item">Company</a>
+	      <a href="./IndexPage.jsp" class="item">Home</a>
 		  <div class="ui pointing dropdown link item">
 			  <span class="text">Clubs</span>
 			  <i class="dropdown icon"></i>

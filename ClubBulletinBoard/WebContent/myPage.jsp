@@ -159,6 +159,12 @@
 		  String sessionID = null;
 		  if (session.getAttribute("sessionID") != null) {
 			  sessionID = (String) session.getAttribute("sessionID");		
+		  } else {
+			  PrintWriter  script = response.getWriter();
+			  script.println("<script>");
+			  script.println("alert('로그인 후에 이용해주세요')");
+		      script.println("history.back()");
+			  script.println("</script>");
 		  }
 		  int pageNumber = 1;	// 기본 페이지를 의미
 		  if (request.getParameter("pageNumber") != null) {
@@ -171,9 +177,7 @@
 	  %>
 	  <div class="ui large top menu">
 	    <div class="ui container">
-	      <a href="" class="item">Home</a>
-	      <a href="#Work" class="item">Work</a>
-	      <a href="#Company" class="item">Company</a>
+	      <a href="./IndexPage.jsp" class="item">Home</a>
 		  <div class="ui pointing dropdown link item">
 			  <span class="text">Clubs</span>
 			  <i class="dropdown icon"></i>
@@ -207,9 +211,7 @@
 	
 	  <div class="ui large top menu">
 	    <div class="ui container">
-	      <a href="" class="item">Home</a>
-	      <a href="#Work" class="item">Work</a>
-	      <a href="#Company" class="item">Company</a>
+	      <a href="./IndexPage.jsp" class="item">Home</a>
 		  <div class="ui pointing dropdown link item">
 			  <span class="text">Clubs</span>
 			  <i class="dropdown icon"></i>
