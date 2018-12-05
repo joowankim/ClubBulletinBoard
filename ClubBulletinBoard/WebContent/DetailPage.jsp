@@ -12,7 +12,7 @@
     integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
   crossorigin="anonymous"></script>
   <script src="./semantic/semantic.min.js"></script>
-<title>Insert title here</title>
+<title>DE</title>
   <title>Homepage-Semantic</title>
  
 </head>
@@ -62,19 +62,62 @@
      			 	<img class="ui large image" src="sample_image.png">
     			</div>
     		</div>
-    
-    		<div class="ui segment">
-      			<h3>동아리명: 컴퓨터 동아리 </h3>
-      			<h3>분류: 학술 </h3>
-      			<h3>모집인원: 10명 </h3>
-      			<h3>우대 조건: 컴퓨터 관련 자격증 소지자 </h3>
-   			 </div>
+    		
+<table class="ui unstackable table">
+  <thead>
+    <tr>
+      <th>동아리 명</th>
+      <td>컴퓨터 동아리</td>
+     
+    </tr>
+    <tr>
+      <th>분류</th> 
+     <td>학술</td>
+    </tr>
+    <tr>
+     <th>모집인원</th>
+        <td>10명</td>
+    </tr>
+    <tr>
+    <th>우대 조건</th>
+        <td>컴퓨터 관련 자격증 소지자</td>
+    </tr>
+  </thead>
+</table>
+
   		</div>
   		
   		<div class="ui very padded segment">
   			<h3>소개 </h3>
   			<p>컴퓨터를 배우는 동아리 입니다.</p>
 		</div>
+ <br>
+ <div class="ui comments">
  
+  <div class="comment">
+    <div class="content">
+      <a class="author">Name</a>
+      <div class="metadata">
+        <span class="date">00:00</span>
+      </div>
+      <div class="text">
+        text message
+      </div>
+      <div class="actions">
+        <a class="reply">Reply</a>
+      </div>
+    </div>
+  </div>
+
+ 
+  <form class="ui reply form">
+    <div class="field">
+      <textarea></textarea>
+    </div>
+    <div class="ui blue labeled submit icon button">
+      <i class="icon edit"></i> 댓글 달기
+    </div>
+  </form>
+</div>
 </body>
 </html>
