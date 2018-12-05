@@ -19,9 +19,9 @@
 <body>
 	<div class="ui large top fixed hidden menu">
 	  <div class="ui container">
-	  	<a href="" class="active item">Home</a>
-	   	<a href="#Work" class="item">Work</a>
-	    <a href="#Company" class="item">Company</a>
+	  	<a href="IndexPage.jsp" class="active item">Home</a>
+	   	<a href="IndexPage.jsp#Work" class="item">Work</a>
+	    <a href="IndexPage.jsp#Company" class="item">Company</a>
 		<div class="ui pointing dropdown link item">
 			<span class="text">Clubs</span>
 			<i class="dropdown icon"></i>
