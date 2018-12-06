@@ -244,7 +244,17 @@
 	  
 	  	  <div class="ui fluid container">
 		  	  <h1 class="ui header">
-				<img class="ui image" src="./image/sample_image.png">
+		  	  <%
+		  	  	if (clubCategory.equals("sports")) {
+		  	  %>
+				<img class="ui image" src="./image/sports.png">
+		  	  <%} else if (clubCategory.equals("art")){ %>
+		  	  	<img class="ui image" src="./image/art.png">
+		  	  <%} else if (clubCategory.equals("study")){ %>
+		  	  	<img class="ui image" src="./image/study.png">
+		  	  <%} else if (clubCategory.equals("contest")){ %>
+		  	  	<img class="ui image" src="./image/contest.png">
+		  	  <%} %>
 				<div class="content">
 				  	<%=clubCategory %>
 				</div>
