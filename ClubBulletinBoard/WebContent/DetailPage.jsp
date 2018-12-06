@@ -170,19 +170,10 @@
 		%>
 
 		<div class="ui small comments">
-  			<h3 class="ui dividing header">Comments</h3>
+		
   			
-  				<!-- text area -->
-				<form id="commentForm" class="ui reply form" action="./commentAction.jsp">
-			        <div class="field">
-			          <textarea name="contents"></textarea>
-			        </div>
-			        <div class="ui primary submit labeled icon button" onclick="registerComment();">
-			          <i class="icon edit"></i> Add Reply
-			        </div>
-		      	</form>
-		      
-		      	<%
+  			
+  				<%
 		      		CommentDAO commentDAO = new CommentDAO();
 		      		UserDAO userDAO = new UserDAO();
 		      		
@@ -192,9 +183,6 @@
 		      	<!-- comment -->
 		      	<div class="ui comments">
 				  <div class="comment">
-				    <a class="avatar">
-				      <img src="/images/avatar/small/stevie.jpg">
-				    </a>
 				    <div class="content">
 				      <a class="author"><%=userDAO.getUserName(list.get(i).getUserID()).replaceAll(" ", "&nbsp;").replaceAll("<", "&lt;").replaceAll(">", "&gt").replaceAll("\n", "<br>") %></a>
 				      <div class="metadata">
@@ -216,6 +204,18 @@
 				  </div>
 				</div>
 		      	<% } %>
+		      	<h3 class="ui dividing header">Comments</h3>
+  				<!-- text area -->
+				<form id="commentForm" class="ui reply form" action="./commentAction.jsp">
+			        <div class="field">
+			          <textarea name="contents"></textarea>
+			        </div>
+			        <div class="ui primary submit labeled icon button" onclick="registerComment();">
+			          <i class="icon edit"></i> Add Reply
+			        </div>
+		      	</form>
+		      
+		      	
 		</div>
  
 </body>
