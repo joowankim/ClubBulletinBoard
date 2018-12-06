@@ -56,14 +56,14 @@
   		동아리명 
 	</h1>
 	
-		<div class="ui horizontal segments">
+		<div class="ui horizontal segments" style="padding:10px;width:1010px;margin:auto">
 			<div class="ui compact segments">
     			<div class="ui segment">
      			 	<img class="ui large image" src="sample_image.png">
     			</div>
     		</div>
     		
-<table class="ui unstackable table">
+<table class="ui unstackable table"style="width:500px">
   <thead>
     <tr>
       <th>동아리 명</th>
@@ -75,24 +75,29 @@
      <td>학술</td>
     </tr>
     <tr>
-     <th>모집인원</th>
+     <th>모집인원</th> 
         <td>10명</td>
     </tr>
     <tr>
     <th>우대 조건</th>
         <td>컴퓨터 관련 자격증 소지자</td>
     </tr>
+       <tr>
+    <th>게시자</th>
+        <td>홍길동</td>
+    </tr>
   </thead>
 </table>
-
-  		</div>
+</div>
+  	
   		
-  		<div class="ui very padded segment">
+  		<div class="ui segment" style="height:200px;width:1010px; margin:auto">
   			<h3>소개 </h3>
   			<p>컴퓨터를 배우는 동아리 입니다.</p>
 		</div>
- <br>
- <div class="ui comments">
+
+<div class="ui very padded segment" style="height:auto;width:1010px; margin:auto">
+  <div class="ui comments" style="width:1010px;">
  
   <div class="comment">
     <div class="content">
@@ -108,8 +113,10 @@
       </div>
     </div>
   </div>
+  </div>
+  </div>
 
- 
+<div class="ui very padded segment" style="height:auto;width:1010px; margin:auto">
   <form class="ui reply form">
     <div class="field">
       <textarea></textarea>
@@ -118,6 +125,8 @@
       <i class="icon edit"></i> 댓글 달기
     </div>
   </form>
-</div>
+  </div>
+
+
 </body>
 </html>
